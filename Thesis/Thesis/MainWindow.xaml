@@ -1,0 +1,33 @@
+﻿<Window x:Class="Thesis.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Thesis"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="350" Width="525">
+    <Grid>
+        <TabControl x:Name="tabControl" SelectionChanged="tabControl_SelectionChanged" Height="auto" Width="auto" Grid.Row="0" BorderBrush="#FF4B4545" Background="#FF7FA49D">
+            <TabItem x:Name="tb_main" Header="Main">
+                <Grid Margin="0,0,0,-2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <ListBox x:Name="lb_patients" HorizontalAlignment="Left" Height="273" Margin="10,10,0,0" VerticalAlignment="Top" Width="178" Background="#FFDADADA"/>
+                    <Button x:Name="btn_record" Content="Record" HorizontalAlignment="Left" Margin="237,230,0,0" VerticalAlignment="Top" Width="75"/>
+                    <Label x:Name="lb_fname" Content="FirstName" HorizontalAlignment="Left" Margin="237,37,0,0" VerticalAlignment="Top" Width="228"/>
+                    <Label x:Name="lb_lname" Content="LastName" HorizontalAlignment="Left" Margin="237,68,0,0" VerticalAlignment="Top" Width="228"/>
+                    <Label x:Name="lb_address" Content="Address" HorizontalAlignment="Left" Margin="237,116,0,0" VerticalAlignment="Top" Width="228"/>
+                    <ComboBox x:Name="comboBox" HorizontalAlignment="Left" Margin="237,172,0,0" VerticalAlignment="Top" Width="228"/>
+                    <Button x:Name="btn_playback" Content="Playback" HorizontalAlignment="Left" Margin="390,230,0,0" VerticalAlignment="Top" Width="75"/>
+                </Grid>
+            </TabItem>
+
+
+
+            <TabItem x:Name="tb_newPatient" Header="New Patient" HorizontalAlignment="Left" Width="80"/>
+        </TabControl>
+
+
+    </Grid>
+</Window>
