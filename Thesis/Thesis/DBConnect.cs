@@ -96,6 +96,26 @@ namespace Thesis
         {
         }
 
+        public void updatePatient(NameValueCollection newData)
+        {
+            string query = "UPDATE patients " +
+                            "SET    first_name = '" + newData["firstname"] + "', " +
+                                    "last_name = '" + newData["lastname"] + "', " +
+                                    "address = '" + newData["address"] + "', " +
+                                    "birth = '" + newData["birth"] + "', " +
+                                    "tel_number = '" + newData["tel"] + "' " +
+                            "WHERE  id = '" + newData["id"] + "'";
+
+            OpenConnection();
+            if (this.OpenConnection())
+            {
+                MySqlCommand cmd = new MySqlCommand(query, connection);
+                cmd.ExecuteNonQuery();
+                Trace.Write(query);
+                CloseConnection();
+            }
+
+        }
         //Delete statement
         public void Delete()
         {
@@ -107,13 +127,10 @@ namespace Thesis
             string query = "SELECT * FROM patients";
             List<NameValueCollection> list = new List<NameValueCollection>();
 
-            OpenConnection();
-
             if (this.OpenConnection())
             {
                 MySqlCommand cmd = new MySqlCommand(query, connection);
                 MySqlDataReader reader = cmd.ExecuteReader();
-                
 
                 while (reader.Read())
                 {
@@ -121,16 +138,14 @@ namespace Thesis
 
                     temp.Add("firstname", reader.GetString("first_name"));
                     temp.Add("lastname", reader.GetString("last_name"));
-                    temp.Add("address", reader.GetString("address"));
+                /*    temp.Add("address", reader.GetString("address"));
                     temp.Add("birth", reader.GetString("birth"));
                     temp.Add("tel", reader.GetString("tel_number"));
                     temp.Add("sex", reader.GetString("sex"));
-
+                */
                     list.Add(temp);
                 }
-
                 CloseConnection();
-
                 return list;
             }
             else
@@ -138,22 +153,51 @@ namespace Thesis
                 return list;
             }
         }
-        
+        public List<NameValueCollection> getPatientByName(String firstname, String lastname)
+        {
+            string query = "SELECT * FROM patients " +
+                            "WHERE first_name = '" + firstname + 
+                            "' AND last_name = '" + lastname + "'";
+            List<NameValueCollection> list = new List<NameValueCollection>();
+
+            if (this.OpenConnection())
+            {
+                MySqlCommand cmd = new MySqlCommand(query, connection);
+                MySqlDataReader reader = cmd.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    NameValueCollection temp = new NameValueCollection();
+
+                    temp.Add("id", reader.GetString("id"));
+                    temp.Add("firstname", reader.GetString("first_name"));
+                    temp.Add("lastname", reader.GetString("last_name"));
+                    temp.Add("address", reader.GetString("address"));
+                    temp.Add("birth", reader.GetString("birth"));
+                    temp.Add("tel", reader.GetString("tel_number"));
+                    
+                    list.Add(temp);
+                }
+                CloseConnection();
+            }
+                return list;
+        }
+
 
         //Count statement
-    /*    public int Count()
-        {
-        }
-    
-        //Backup
-        public void Backup()
-        {
-        }
+        /*    public int Count()
+            {
+            }
 
-        //Restore
-        public void Restore()
-        {
-        }
-    */
+            //Backup
+            public void Backup()
+            {
+            }
+
+            //Restore
+            public void Restore()
+            {
+            }
+        */
     }
 }

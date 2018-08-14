@@ -23,7 +23,7 @@ namespace Thesis
     {
 
         private DBConnect con;
-        private List<NameValueCollection> patients;
+        //private List<NameValueCollection> patients;
         public MainWindow()
         {
             InitializeComponent();
@@ -34,17 +34,35 @@ namespace Thesis
         private void Initialize()
         {
             con = new DBConnect();
-            patients = con.getPatients();
+            //patients = con.getPatients();
         }
 
         private void fillListBox()
         {
-            foreach(NameValueCollection it in patients)
+            List<NameValueCollection> patients = con.getPatients();
+
+            foreach (NameValueCollection it in patients)
             {
                 String name = it["firstname"] + " " + it["lastname"];
-                lb_patients.Items.Add(name);
+                lbox_patients.Items.Add(name);
             }
         }
+        private void fillLabels(String firstname, String lastname)
+        {
+            List<NameValueCollection> patients = con.getPatientByName(firstname, lastname);
+
+            foreach(NameValueCollection it in patients)
+            {
+                tb_fname.Text = it["firstname"];
+                tb_lname.Text = it["lastname"];
+                tb_address.Text = it["address"];
+                dp_birth.Text = it["birth"];
+                tb_tel.Text = it["tel"];
+
+                lb_id.Content = it["id"];
+            }
+        }
+
 
         private void tabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -58,6 +76,48 @@ namespace Thesis
 
         private void Window_Initialized(object sender, EventArgs e)
         {
+        }
+
+        private void lbox_patients_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if(lbox_patients.Items.Count > 0)
+            {
+                String name = lbox_patients.SelectedItem.ToString();
+                String firstname = name.Split(' ')[0];
+                String lastname = name.Split(' ')[1];
+
+                fillLabels(firstname, lastname);
+            }
+            
+        }
+
+        private void btn_modify_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            
+        }
+
+        private void btn_modify_Click(object sender, RoutedEventArgs e)
+        {
+            if (lb_id.Content.ToString().Length > 0 &&
+                tb_fname.Text.Length > 0 &&
+                tb_lname.Text.Length > 0 &&
+                tb_address.Text.Length > 0 &&
+                tb_tel.Text.Length > 0 &&
+                dp_birth.Text.Length > 0)
+            {
+                NameValueCollection data = new NameValueCollection();
+                data.Add("id", lb_id.Content.ToString());
+                data.Add("firstname", tb_fname.Text);
+                data.Add("lastname", tb_lname.Text);
+                data.Add("address", tb_address.Text);
+                data.Add("birth", dp_birth.Text);
+                data.Add("tel", tb_tel.Text);
+
+                con.updatePatient(data);
+
+                lbox_patients.Items.Clear();
+                fillListBox();
+            }
         }
     }
 }

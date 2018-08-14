@@ -5,22 +5,38 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Thesis"
         mc:Ignorable="d"
-        Title="Leap Motion Data Process" Height="350" Width="525" Closing="Window_Closing" Initialized="Window_Initialized">
+        Title="Leap Motion Data Process" Height="350" Width="525" Closing="Window_Closing" Initialized="Window_Initialized" Background="White">
     <Grid>
-        <TabControl x:Name="tabControl" SelectionChanged="tabControl_SelectionChanged" Height="auto" Width="auto" Grid.Row="0" BorderBrush="#FF4B4545" Background="#FF7FA49D">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <TabControl x:Name="tabControl" SelectionChanged="tabControl_SelectionChanged" Height="auto" Width="auto" Grid.Row="0" BorderBrush="#FF595151" Background="#FF7FA49D" Margin="0,0,0.4,0.4">
             <TabItem x:Name="tb_main" Header="Main">
                 <Grid Margin="0,0,0,-2">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="13*"/>
                         <ColumnDefinition Width="496*"/>
                     </Grid.ColumnDefinitions>
-                    <ListBox x:Name="lb_patients" HorizontalAlignment="Left" Height="273" Margin="10,10,0,0" VerticalAlignment="Top" Width="178" Background="White" Grid.ColumnSpan="2" BorderBrush="Black" Foreground="Black"/>
-                    <Button x:Name="btn_record" Content="Record" HorizontalAlignment="Left" Margin="224.18,230,0,0" VerticalAlignment="Top" Width="75" Grid.Column="1"/>
-                    <Label x:Name="lb_fname" Content="FirstName" HorizontalAlignment="Left" Margin="224.18,37,0,0" VerticalAlignment="Top" Width="228" Grid.Column="1"/>
-                    <Label x:Name="lb_lname" Content="LastName" HorizontalAlignment="Left" Margin="224.18,68,0,0" VerticalAlignment="Top" Width="228" Grid.Column="1"/>
-                    <Label x:Name="lb_address" Content="Address" HorizontalAlignment="Left" Margin="224.18,116,0,0" VerticalAlignment="Top" Width="228" Grid.Column="1"/>
-                    <ComboBox x:Name="comboBox" HorizontalAlignment="Left" Margin="224.18,172,0,0" VerticalAlignment="Top" Width="228" Grid.Column="1"/>
-                    <Button x:Name="btn_playback" Content="Playback" HorizontalAlignment="Left" Margin="377.18,230,0,0" VerticalAlignment="Top" Width="75" Grid.Column="1"/>
+
+                    <TextBox x:Name="tb_fname" HorizontalAlignment="Left" Height="23" Margin="274.2,28,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="205" Grid.Column="1"/>
+                    <TextBox x:Name="tb_lname" HorizontalAlignment="Left" Height="23" Margin="274.2,54,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="205" Grid.Column="1"/>
+                    <TextBox x:Name="tb_address" HorizontalAlignment="Left" Height="23" Margin="274.2,80,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="205" Grid.Column="1"/>
+                    <TextBox x:Name="tb_tel" HorizontalAlignment="Left" Height="23" Margin="274.2,134,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="205" Grid.Column="1"/>
+                    <DatePicker x:Name="dp_birth" HorizontalAlignment="Left" Margin="274.2,108,0,0" VerticalAlignment="Top" SelectedDateFormat="Short" Grid.Column="1" BorderBrush="Gray" Background="#FF7FA49D"/>
+                    <Label x:Name="lb_id" Content="" HorizontalAlignment="Left" Margin="470,297,0,0" VerticalAlignment="Top" Visibility="Hidden"/>
+
+
+                    <ListBox x:Name="lbox_patients" HorizontalAlignment="Left" Height="263" Margin="10,20,0,0" VerticalAlignment="Top" Width="178" Background="White" Grid.ColumnSpan="2" BorderBrush="Black" Foreground="Black" SelectionChanged="lbox_patients_SelectionChanged"/>
+                    <Button x:Name="btn_record" Content="Record" HorizontalAlignment="Left" Margin="224.2,248,0,0" VerticalAlignment="Top" Width="75" Grid.Column="1"/>
+                    <Label x:Name="lb_fname" Content="First Name" HorizontalAlignment="Left" Margin="180.2,25,0,0" VerticalAlignment="Top" Width="73" Grid.Column="1"/>
+                    <Label x:Name="lb_lname" Content="Last Name" HorizontalAlignment="Left" Margin="180.2,51,0,0" VerticalAlignment="Top" Width="73" Grid.Column="1"/>
+                    <Label x:Name="lb_address" Content="Address" HorizontalAlignment="Left" Margin="180.2,77,0,0" VerticalAlignment="Top" Width="73" Grid.Column="1"/>
+                    <ComboBox x:Name="comboBox" HorizontalAlignment="Left" Margin="224.2,211,0,0" VerticalAlignment="Top" Width="228" Grid.Column="1"/>
+                    <Button x:Name="btn_playback" Content="Playback" HorizontalAlignment="Left" Margin="377.2,248,0,0" VerticalAlignment="Top" Width="75" Grid.Column="1"/>
+                    <Label x:Name="l_patients" Content="Patients" HorizontalAlignment="Left" Margin="38.2,-10,0,0" VerticalAlignment="Top" Width="74" FontSize="16" Grid.Column="1" Height="30" RenderTransformOrigin="0.5,0.5"/>
+                    <Label x:Name="lb_address_Copy" Content="Date of Birth" HorizontalAlignment="Left" Margin="180.2,108,0,0" VerticalAlignment="Top" Width="83" Grid.Column="1"/>
+                    <Label x:Name="lb_address_Copy1" Content="Telephone" HorizontalAlignment="Left" Margin="180.2,134,0,0" VerticalAlignment="Top" Width="73" Grid.Column="1" Height="28"/>
+                    <Button x:Name="btn_modify" Content="Modify" HorizontalAlignment="Left" Margin="404.2,162,0,0" VerticalAlignment="Top" Width="75" Grid.Column="1" MouseLeftButtonDown="btn_modify_MouseLeftButtonDown" Click="btn_modify_Click"/>
                 </Grid>
             </TabItem>
 
@@ -28,7 +44,5 @@
 
             <TabItem x:Name="tb_newPatient" Header="New Patient" HorizontalAlignment="Left" Width="80"/>
         </TabControl>
-
-
     </Grid>
 </Window>
