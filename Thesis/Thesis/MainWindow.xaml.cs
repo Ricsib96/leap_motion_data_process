@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,17 +21,43 @@ namespace Thesis
     /// </summary>
     public partial class MainWindow : Window
     {
+
+        private DBConnect con;
+        private List<NameValueCollection> patients;
         public MainWindow()
         {
             InitializeComponent();
-            DBConnect con = new DBConnect();
+            Initialize();
+            fillListBox();
+        }
 
-            lb_patients.Items.Add(con.Select()[1]);
+        private void Initialize()
+        {
+            con = new DBConnect();
+            patients = con.getPatients();
+        }
+
+        private void fillListBox()
+        {
+            foreach(NameValueCollection it in patients)
+            {
+                String name = it["firstname"] + " " + it["lastname"];
+                lb_patients.Items.Add(name);
+            }
         }
 
         private void tabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
 
+        }
+
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+
+        }
+
+        private void Window_Initialized(object sender, EventArgs e)
+        {
         }
     }
 }

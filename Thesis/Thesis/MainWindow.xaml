@@ -5,21 +5,22 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Thesis"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
+        Title="Leap Motion Data Process" Height="350" Width="525" Closing="Window_Closing" Initialized="Window_Initialized">
     <Grid>
         <TabControl x:Name="tabControl" SelectionChanged="tabControl_SelectionChanged" Height="auto" Width="auto" Grid.Row="0" BorderBrush="#FF4B4545" Background="#FF7FA49D">
             <TabItem x:Name="tb_main" Header="Main">
                 <Grid Margin="0,0,0,-2">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition/>
+                        <ColumnDefinition Width="13*"/>
+                        <ColumnDefinition Width="496*"/>
                     </Grid.ColumnDefinitions>
-                    <ListBox x:Name="lb_patients" HorizontalAlignment="Left" Height="273" Margin="10,10,0,0" VerticalAlignment="Top" Width="178" Background="#FFDADADA"/>
-                    <Button x:Name="btn_record" Content="Record" HorizontalAlignment="Left" Margin="237,230,0,0" VerticalAlignment="Top" Width="75"/>
-                    <Label x:Name="lb_fname" Content="FirstName" HorizontalAlignment="Left" Margin="237,37,0,0" VerticalAlignment="Top" Width="228"/>
-                    <Label x:Name="lb_lname" Content="LastName" HorizontalAlignment="Left" Margin="237,68,0,0" VerticalAlignment="Top" Width="228"/>
-                    <Label x:Name="lb_address" Content="Address" HorizontalAlignment="Left" Margin="237,116,0,0" VerticalAlignment="Top" Width="228"/>
-                    <ComboBox x:Name="comboBox" HorizontalAlignment="Left" Margin="237,172,0,0" VerticalAlignment="Top" Width="228"/>
-                    <Button x:Name="btn_playback" Content="Playback" HorizontalAlignment="Left" Margin="390,230,0,0" VerticalAlignment="Top" Width="75"/>
+                    <ListBox x:Name="lb_patients" HorizontalAlignment="Left" Height="273" Margin="10,10,0,0" VerticalAlignment="Top" Width="178" Background="White" Grid.ColumnSpan="2" BorderBrush="Black" Foreground="Black"/>
+                    <Button x:Name="btn_record" Content="Record" HorizontalAlignment="Left" Margin="224.18,230,0,0" VerticalAlignment="Top" Width="75" Grid.Column="1"/>
+                    <Label x:Name="lb_fname" Content="FirstName" HorizontalAlignment="Left" Margin="224.18,37,0,0" VerticalAlignment="Top" Width="228" Grid.Column="1"/>
+                    <Label x:Name="lb_lname" Content="LastName" HorizontalAlignment="Left" Margin="224.18,68,0,0" VerticalAlignment="Top" Width="228" Grid.Column="1"/>
+                    <Label x:Name="lb_address" Content="Address" HorizontalAlignment="Left" Margin="224.18,116,0,0" VerticalAlignment="Top" Width="228" Grid.Column="1"/>
+                    <ComboBox x:Name="comboBox" HorizontalAlignment="Left" Margin="224.18,172,0,0" VerticalAlignment="Top" Width="228" Grid.Column="1"/>
+                    <Button x:Name="btn_playback" Content="Playback" HorizontalAlignment="Left" Margin="377.18,230,0,0" VerticalAlignment="Top" Width="75" Grid.Column="1"/>
                 </Grid>
             </TabItem>
 

@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using System.Windows;
 using MySql.Data.MySqlClient;
 using System.Diagnostics;
+using System.Data;
+using System.Collections.Specialized;
 
 namespace Thesis
 {
@@ -35,15 +37,17 @@ namespace Thesis
             database + ";" + "UID=" + uid + ";" + "PASSWORD=" + password + ";";
 
             connection = new MySqlConnection(connectionString);
-            OpenConnection();
         }
 
         //open connection to database
-        private bool OpenConnection()
+        public bool OpenConnection()
         {
             try
             {
-                connection.Open();
+                if(connection.State==ConnectionState.Closed)
+                {
+                    connection.Open();
+                }
                 return true;
             }
             catch (MySqlException ex)
@@ -68,7 +72,7 @@ namespace Thesis
         }
 
         //Close connection
-        private bool CloseConnection()
+        public bool CloseConnection()
         {
             try
             {
@@ -98,30 +102,35 @@ namespace Thesis
         }
 
         //Select statement
-        public List<string>[] Select()
+        public List<NameValueCollection> getPatients()
         {
-            string query = "SELECT * FROM temp";
+            string query = "SELECT * FROM patients";
+            List<NameValueCollection> list = new List<NameValueCollection>();
 
-            List<string>[] list = new List<string>[2];
-            list[0] = new List<string>();
-            list[1] = new List<string>();
+            OpenConnection();
 
             if (this.OpenConnection())
             {
                 MySqlCommand cmd = new MySqlCommand(query, connection);
-                MySqlDataReader dataReader = cmd.ExecuteReader();
-                while (dataReader.Read())
+                MySqlDataReader reader = cmd.ExecuteReader();
+                
+
+                while (reader.Read())
                 {
-                    list[0].Add(dataReader["id"] + "");
-                    list[1].Add(dataReader["name"] + "");
+                    NameValueCollection temp = new NameValueCollection();
+
+                    temp.Add("firstname", reader.GetString("first_name"));
+                    temp.Add("lastname", reader.GetString("last_name"));
+                    temp.Add("address", reader.GetString("address"));
+                    temp.Add("birth", reader.GetString("birth"));
+                    temp.Add("tel", reader.GetString("tel_number"));
+                    temp.Add("sex", reader.GetString("sex"));
+
+                    list.Add(temp);
                 }
 
-                dataReader.Close();
+                CloseConnection();
 
-                //close Connection
-                this.CloseConnection();
-
-                //return list to be displayed
                 return list;
             }
             else
