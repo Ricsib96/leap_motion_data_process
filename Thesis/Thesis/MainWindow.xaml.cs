@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,7 +24,7 @@ namespace Thesis
     {
 
         private DBConnect con;
-        //private List<NameValueCollection> patients;
+        private List<int> ids;
         public MainWindow()
         {
             InitializeComponent();
@@ -34,33 +35,33 @@ namespace Thesis
         private void Initialize()
         {
             con = new DBConnect();
-            //patients = con.getPatients();
         }
 
         private void fillListBox()
         {
+            ids = new List<int>();
             List<NameValueCollection> patients = con.getPatients();
 
             foreach (NameValueCollection it in patients)
             {
+                int id = Int32.Parse(it["id"]);
+                ids.Add(id);
+
                 String name = it["firstname"] + " " + it["lastname"];
                 lbox_patients.Items.Add(name);
             }
         }
         private void fillLabels(String firstname, String lastname)
         {
-            List<NameValueCollection> patients = con.getPatientByName(firstname, lastname);
+            NameValueCollection patient = con.getPatientById(ids.ElementAt(lbox_patients.SelectedIndex));
 
-            foreach(NameValueCollection it in patients)
-            {
-                tb_fname.Text = it["firstname"];
-                tb_lname.Text = it["lastname"];
-                tb_address.Text = it["address"];
-                dp_birth.Text = it["birth"];
-                tb_tel.Text = it["tel"];
+            tb_fname.Text = patient["firstname"];
+            tb_lname.Text = patient["lastname"];
+            tb_address.Text = patient["address"];
+            dp_birth.Text = patient["birth"];
+            tb_tel.Text = patient["tel"];
 
-                lb_id.Content = it["id"];
-            }
+            lb_id.Content = patient["id"];
         }
 
 
@@ -80,7 +81,7 @@ namespace Thesis
 
         private void lbox_patients_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if(lbox_patients.Items.Count > 0)
+            if(lbox_patients.Items.Count > 0 && cbox_new.IsChecked == false)
             {
                 String name = lbox_patients.SelectedItem.ToString();
                 String firstname = name.Split(' ')[0];
@@ -98,8 +99,7 @@ namespace Thesis
 
         private void btn_modify_Click(object sender, RoutedEventArgs e)
         {
-            if (lb_id.Content.ToString().Length > 0 &&
-                tb_fname.Text.Length > 0 &&
+            if (tb_fname.Text.Length > 0 &&
                 tb_lname.Text.Length > 0 &&
                 tb_address.Text.Length > 0 &&
                 tb_tel.Text.Length > 0 &&
@@ -107,16 +107,65 @@ namespace Thesis
             {
                 NameValueCollection data = new NameValueCollection();
                 data.Add("id", lb_id.Content.ToString());
-                data.Add("firstname", tb_fname.Text);
-                data.Add("lastname", tb_lname.Text);
+                data.Add("first_name", tb_fname.Text);
+                data.Add("last_name", tb_lname.Text);
                 data.Add("address", tb_address.Text);
                 data.Add("birth", dp_birth.Text);
-                data.Add("tel", tb_tel.Text);
+                data.Add("tel_number", tb_tel.Text);
 
-                con.updatePatient(data);
+                if (cbox_new.IsChecked == false)
+                {
+                    con.updatePatient(data);
+                }
+                else
+                {
+                    data.Add("sex", cb_sex.Text);
+                    con.addPatient(data);
+                    cbox_new.IsChecked = false;
+                }
+                
 
                 lbox_patients.Items.Clear();
                 fillListBox();
+            }
+        }
+
+        private void cbox_new_Click(object sender, RoutedEventArgs e)
+        {
+            if(cbox_new.IsChecked == true)
+            {
+                btn_modify.Content = "Add";
+                cb_sex.Visibility = Visibility.Visible;
+                lbox_patients.SelectedIndex = -1;
+                clearAllTextBox();
+            }
+            else
+            {
+                btn_modify.Content = "Modify";
+                cb_sex.Visibility = Visibility.Hidden;
+            }
+        }
+
+        private void clearAllTextBox()
+        {
+            tb_fname.Text = "";
+            tb_lname.Text = "";
+            tb_address.Text = "";
+            tb_tel.Text = "";
+            dp_birth.Text = "";
+        }
+
+        private void btn_delete_Click(object sender, RoutedEventArgs e)
+        {
+            if(lbox_patients.SelectedIndex > -1)
+            {
+                con.deletePatientById(ids.ElementAt(lbox_patients.SelectedIndex));
+                ids.RemoveAt(lbox_patients.SelectedIndex);
+
+                lbox_patients.Items.Clear();
+                fillListBox();
+
+                clearAllTextBox();
             }
         }
     }
