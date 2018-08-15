@@ -29,59 +29,48 @@ namespace Thesis
         {
             InitializeComponent();
             Initialize();
-            fillListBox();
+            initializeListBox();
         }
 
         private void Initialize()
         {
             con = new DBConnect();
         }
-
-        private void fillListBox()
+        private void initializeListBox()
+        {
+            fillListBox(con.getPatients());
+        }
+        private void fillListBox(List<Patient> patients)
         {
             ids = new List<int>();
-            List<NameValueCollection> patients = con.getPatients();
+            lbox_patients.Items.Clear();
 
-            foreach (NameValueCollection it in patients)
+            foreach(Patient p in patients)
             {
-                int id = Int32.Parse(it["id"]);
+                int id = p.Id;
                 ids.Add(id);
 
-                String name = it["firstname"] + " " + it["lastname"];
+                String name = p.First_name + " " + p.Last_name;
                 lbox_patients.Items.Add(name);
             }
         }
+
         private void fillLabels(String firstname, String lastname)
         {
-            NameValueCollection patient = con.getPatientById(ids.ElementAt(lbox_patients.SelectedIndex));
+            Patient patient = con.getPatientById(ids.ElementAt(lbox_patients.SelectedIndex));
 
-            tb_fname.Text = patient["firstname"];
-            tb_lname.Text = patient["lastname"];
-            tb_address.Text = patient["address"];
-            dp_birth.Text = patient["birth"];
-            tb_tel.Text = patient["tel"];
+            tb_fname.Text = patient.First_name;
+            tb_lname.Text = patient.Last_name;
+            tb_address.Text = patient.Address;
+            dp_birth.Text = patient.Birth;
+            tb_tel.Text = patient.Tel_number;
 
-            lb_id.Content = patient["id"];
+            lb_id.Content = patient.Id;
         }
 
-
-        private void tabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void patientSelect(object sender, SelectionChangedEventArgs e)
         {
-
-        }
-
-        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
-        {
-
-        }
-
-        private void Window_Initialized(object sender, EventArgs e)
-        {
-        }
-
-        private void lbox_patients_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            if(lbox_patients.Items.Count > 0 && cbox_new.IsChecked == false)
+            if(lbox_patients.Items.Count > 0 && cbox_new.IsChecked == false && lbox_patients.SelectedIndex != -1)
             {
                 String name = lbox_patients.SelectedItem.ToString();
                 String firstname = name.Split(' ')[0];
@@ -92,12 +81,7 @@ namespace Thesis
             
         }
 
-        private void btn_modify_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-        {
-            
-        }
-
-        private void btn_modify_Click(object sender, RoutedEventArgs e)
+        private void modifyPatient(object sender, RoutedEventArgs e)
         {
             if (tb_fname.Text.Length > 0 &&
                 tb_lname.Text.Length > 0 &&
@@ -105,32 +89,41 @@ namespace Thesis
                 tb_tel.Text.Length > 0 &&
                 dp_birth.Text.Length > 0)
             {
-                NameValueCollection data = new NameValueCollection();
-                data.Add("id", lb_id.Content.ToString());
-                data.Add("first_name", tb_fname.Text);
-                data.Add("last_name", tb_lname.Text);
-                data.Add("address", tb_address.Text);
-                data.Add("birth", dp_birth.Text);
-                data.Add("tel_number", tb_tel.Text);
+                Patient data = new Patient();
+
+                data.Id = Int32.Parse(lb_id.Content.ToString());
+                data.First_name = tb_fname.Text;
+                data.Last_name = tb_lname.Text;
+                data.Address = tb_address.Text;
+                data.Birth = dp_birth.Text;
+                data.Tel_number = tb_tel.Text;
 
                 if (cbox_new.IsChecked == false)
                 {
                     con.updatePatient(data);
+
+                    writeInformation("Patients' data has been modified succesfully!");
                 }
                 else
                 {
-                    data.Add("sex", cb_sex.Text);
+                    data.Sex = cb_sex.Text;
                     con.addPatient(data);
                     cbox_new.IsChecked = false;
+                    cb_sex.Visibility = Visibility.Hidden;
+
+                    writeInformation("New patient has been added succesfully!");
                 }
                 
 
-                lbox_patients.Items.Clear();
-                fillListBox();
+                //lbox_patients.Items.Clear();
+                initializeListBox();
+            }else
+            {
+                writeInformation("A data field is empty!");
             }
         }
 
-        private void cbox_new_Click(object sender, RoutedEventArgs e)
+        private void newPatientCheck(object sender, RoutedEventArgs e)
         {
             if(cbox_new.IsChecked == true)
             {
@@ -155,18 +148,50 @@ namespace Thesis
             dp_birth.Text = "";
         }
 
-        private void btn_delete_Click(object sender, RoutedEventArgs e)
+        private void deletePatient(object sender, RoutedEventArgs e)
         {
             if(lbox_patients.SelectedIndex > -1)
             {
                 con.deletePatientById(ids.ElementAt(lbox_patients.SelectedIndex));
                 ids.RemoveAt(lbox_patients.SelectedIndex);
 
-                lbox_patients.Items.Clear();
-                fillListBox();
-
+                initializeListBox();
                 clearAllTextBox();
+
+                writeInformation("Patient has been removed!");
             }
+            else
+            {
+                writeInformation("There is no selected patient!");
+            }
+        }
+
+        private void searchPatient(object sender, RoutedEventArgs e)
+        {
+            if(tb_search.Text.Length > 0)
+            {
+                fillListBox(con.searchPatient(tb_search.Text));
+            }else
+            {
+                writeInformation("The search box is empty!");
+            }
+        }
+
+        private void searchTextChanged(object sender, TextChangedEventArgs e)
+        {
+            if(tb_search.Text.Length <= 0)
+            {
+                fillListBox(con.getPatients());
+            }
+        }
+        public void writeInformation(string info)
+        {
+            tb_info.Text = info;
+        }
+
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+
         }
     }
 }
