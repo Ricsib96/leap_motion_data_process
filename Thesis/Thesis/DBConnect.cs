@@ -271,6 +271,7 @@ namespace Thesis
             if (this.OpenConnection())
             {
                 MySqlCommand cmd = new MySqlCommand(query, connection);
+                Trace.Write(query);
                 cmd.ExecuteNonQuery();
                 Trace.Write(query);
                 CloseConnection();
