@@ -103,19 +103,47 @@ namespace Thesis
         public void Update()
         {
         }
-        public void addPatient(NameValueCollection newData)
+        public List<Patient> searchPatient(string data)
+        {
+            List<Patient> list = new List<Patient>();
+            string query =  "SELECT * FROM " + TABLE_PATIENTS + " " +
+                            "WHERE CONCAT(" + COL_FIRST_NAME + ",' '," + COL_LAST_NAME + ") " +
+                            "LIKE '%" + data + "%'";
+
+            OpenConnection();
+            if (this.OpenConnection())
+            {
+                MySqlCommand cmd = new MySqlCommand(query, connection);
+                MySqlDataReader reader = cmd.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    Patient temp = new Patient();
+
+                    temp.Id = reader.GetInt32(COL_ID);
+                    temp.First_name = reader.GetString(COL_FIRST_NAME);
+                    temp.Last_name = reader.GetString(COL_LAST_NAME);
+
+                    list.Add(temp);
+                }
+                CloseConnection();
+            }
+
+            return list;
+        }
+        public void addPatient(Patient patient)
         {
             string query =  "INSERT INTO "+ TABLE_PATIENTS + "(" + 
                             COL_FIRST_NAME + "," + COL_LAST_NAME + "," +
                             COL_ADDRESS + "," + COL_BIRTH + "," +
                             COL_SEX + "," + COL_TEL_NUMBER + ")" + 
                             
-                            "VALUES (" + "'" + newData[COL_FIRST_NAME] + "'" + "," + 
-                                        "'" + newData[COL_LAST_NAME] + "'" + "," +
-                                        "'" + newData[COL_ADDRESS] + "'" + "," +
-                                        "'" + newData[COL_BIRTH] + "'" + "," +
-                                        "'" + newData[COL_SEX] + "'" + "," +
-                                        "'" + newData[COL_TEL_NUMBER] + "'" + ")";
+                            "VALUES (" + "'" + patient.First_name + "'" + "," + 
+                                        "'" + patient.Last_name + "'" + "," +
+                                        "'" + patient.Address + "'" + "," +
+                                        "'" + patient.Birth + "'" + "," +
+                                        "'" + patient.Sex + "'" + "," +
+                                        "'" + patient.Tel_number + "'" + ")";
 
             OpenConnection();
             if (this.OpenConnection())
@@ -127,15 +155,15 @@ namespace Thesis
             }
 
         }
-        public void updatePatient(NameValueCollection newData)
+        public void updatePatient(Patient patient)
         {
             string query = "UPDATE "+ TABLE_PATIENTS +
-                            " SET    " + COL_FIRST_NAME + " = '" + newData[COL_FIRST_NAME] + "', " +
-                                    COL_LAST_NAME +" = '" + newData[COL_LAST_NAME] + "', " +
-                                    COL_ADDRESS +" = '" + newData[COL_ADDRESS] + "', " +
-                                    COL_BIRTH +" = '" + newData[COL_BIRTH] + "', " +
-                                    COL_TEL_NUMBER +" = '" + newData[COL_TEL_NUMBER] + "' " +
-                            "WHERE  " + COL_ID +" = '" + newData[COL_ID] + "'";
+                            " SET    " + COL_FIRST_NAME + " = '" + patient.First_name + "', " +
+                                    COL_LAST_NAME +" = '" + patient.Last_name + "', " +
+                                    COL_ADDRESS +" = '" + patient.Address + "', " +
+                                    COL_BIRTH +" = '" + patient.Birth + "', " +
+                                    COL_TEL_NUMBER +" = '" + patient.Tel_number + "' " +
+                            "WHERE  " + COL_ID +" = '" + patient.Id + "'";
 
             OpenConnection();
             if (this.OpenConnection())
@@ -153,10 +181,10 @@ namespace Thesis
         }
 
         //Select statement
-        public List<NameValueCollection> getPatients()
+        public List<Patient> getPatients()
         {
             string query = "SELECT * FROM patients";
-            List<NameValueCollection> list = new List<NameValueCollection>();
+            List<Patient> list = new List<Patient>();
 
             if (this.OpenConnection())
             {
@@ -165,12 +193,12 @@ namespace Thesis
 
                 while (reader.Read())
                 {
-                    NameValueCollection temp = new NameValueCollection();
+                    Patient temp = new Patient();
 
-                    temp.Add("firstname", reader.GetString(COL_FIRST_NAME));
-                    temp.Add("lastname", reader.GetString(COL_LAST_NAME));
-                    temp.Add("id", reader.GetString(COL_ID));
-                    
+                    temp.First_name = reader.GetString(COL_FIRST_NAME);
+                    temp.Last_name = reader.GetString(COL_LAST_NAME);
+                    temp.Id = reader.GetInt32(COL_ID);
+
                     list.Add(temp);
                 }
                 CloseConnection();
@@ -181,12 +209,12 @@ namespace Thesis
                 return list;
             }
         }
-        public NameValueCollection getPatientByName(String firstname, String lastname)
+        public Patient getPatientByName(String firstname, String lastname)
         {
             string query = "SELECT * FROM " + TABLE_PATIENTS + " " +
                             "WHERE " + COL_FIRST_NAME +" = '" + firstname + 
                             "' AND " + COL_LAST_NAME +" = '" + lastname + "'";
-            NameValueCollection temp = new NameValueCollection();
+            Patient temp = new Patient();
 
             if (this.OpenConnection())
             {
@@ -195,13 +223,12 @@ namespace Thesis
 
                 while (reader.Read())
                 {
-
-                    temp.Add("id", reader.GetString(COL_ID));
-                    temp.Add("firstname", reader.GetString(COL_FIRST_NAME));
-                    temp.Add("lastname", reader.GetString(COL_LAST_NAME));
-                    temp.Add("address", reader.GetString(COL_ADDRESS));
-                    temp.Add("birth", reader.GetString(COL_BIRTH));
-                    temp.Add("tel", reader.GetString(COL_TEL_NUMBER));
+                    temp.Id = reader.GetInt32(COL_ID);
+                    temp.First_name = reader.GetString(COL_FIRST_NAME);
+                    temp.Last_name = reader.GetString(COL_LAST_NAME);
+                    temp.Address = reader.GetString(COL_ADDRESS);
+                    temp.Birth = reader.GetString(COL_BIRTH);
+                    temp.Tel_number = reader.GetString(COL_TEL_NUMBER);
                    
                 }
                 CloseConnection();
@@ -209,11 +236,11 @@ namespace Thesis
             return temp;
         }
 
-        public NameValueCollection getPatientById(int id)
+        public Patient getPatientById(int id)
         {
             string query = "SELECT * FROM " + TABLE_PATIENTS + " " +
                             "WHERE " + COL_ID + " = '" + id.ToString() + "'";
-            NameValueCollection temp = new NameValueCollection();
+            Patient temp = new Patient();
 
             if (this.OpenConnection())
             {
@@ -223,12 +250,12 @@ namespace Thesis
                 while (reader.Read())
                 {
 
-                    temp.Add("id", reader.GetString(COL_ID));
-                    temp.Add("firstname", reader.GetString(COL_FIRST_NAME));
-                    temp.Add("lastname", reader.GetString(COL_LAST_NAME));
-                    temp.Add("address", reader.GetString(COL_ADDRESS));
-                    temp.Add("birth", reader.GetString(COL_BIRTH));
-                    temp.Add("tel", reader.GetString(COL_TEL_NUMBER));
+                    temp.Id = reader.GetInt32(COL_ID);
+                    temp.First_name = reader.GetString(COL_FIRST_NAME);
+                    temp.Last_name = reader.GetString(COL_LAST_NAME);
+                    temp.Address = reader.GetString(COL_ADDRESS);
+                    temp.Birth = reader.GetString(COL_BIRTH);
+                    temp.Tel_number = reader.GetString(COL_TEL_NUMBER);
 
                 }
                 CloseConnection();
@@ -244,6 +271,7 @@ namespace Thesis
             if (this.OpenConnection())
             {
                 MySqlCommand cmd = new MySqlCommand(query, connection);
+                Trace.Write(query);
                 cmd.ExecuteNonQuery();
                 Trace.Write(query);
                 CloseConnection();
