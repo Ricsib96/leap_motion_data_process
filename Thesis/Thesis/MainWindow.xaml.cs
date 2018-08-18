@@ -53,15 +53,15 @@ namespace Thesis
         {
             fillListBox(p_controller.getPatients(con));
         }
-
+       
 
 //--------------------------------------------
-//***EVENTS***
+//***PATIENT TAB EVENTS***
 //--------------------------------------------
 
         /*
          * ***FILL LIST BOX***
-         */ 
+         */
         private void fillListBox(List<Patient> patients)
         {
             lbox_patients.Items.Clear();
@@ -231,6 +231,12 @@ namespace Thesis
         }
 
 
+//--------------------------------------------
+//***REPLAY TAB EVENTS***
+//--------------------------------------------
+
+
+
 
 
 //--------------------------------------------
@@ -256,6 +262,18 @@ namespace Thesis
             tb_address.Text = "";
             tb_tel.Text = "";
             dp_birth.Text = "";
+        }
+
+        private void tabSelected(object sender, SelectionChangedEventArgs e)
+        {
+            if(tabControl.SelectedIndex == 1)
+            {
+                fillReplays();
+            }
+        }
+        private void fillReplays()
+        {
+
         }
     }
 }
