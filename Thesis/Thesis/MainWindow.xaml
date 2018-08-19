@@ -6,27 +6,25 @@
         xmlns:local="clr-namespace:Thesis"
         xmlns:System="clr-namespace:System;assembly=mscorlib" x:Class="Thesis.MainWindow"
         mc:Ignorable="d"
-        Title="Leap Motion Data Process" Height="370" Width="537.267" Background="White" ResizeMode="CanMinimize">
+        Title="Leap Motion Data Process" Height="370" Width="537.267" Background="#FFECECEC" ResizeMode="CanMinimize">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <TabControl x:Name="tabControl" Height="auto" Width="auto" Grid.Row="0" BorderBrush="#FF595151" Background="#FF7FA49D" Margin="0,0,0.4,-0.4" RenderTransformOrigin="0.497,0.494">
-            <TabItem x:Name="tb_main" Header="Patients" Height="23" VerticalAlignment="Top">
+        <TabControl x:Name="tabControl" Height="auto" Width="auto" Grid.Row="0" BorderBrush="#FF595151" Background="#FF252526" Margin="0,0,0.4,-0.4" RenderTransformOrigin="0.497,0.494" SelectionChanged="tabSelected">
+            <TabItem x:Name="tb_main" Header="Patients" Height="23" VerticalAlignment="Top" FontFamily="Microsoft YaHei UI Light">
                 <Grid Margin="0,0,0,-2">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="4*"/>
-                        <ColumnDefinition Width="66*"/>
-                        <ColumnDefinition Width="452*"/>
-                        <ColumnDefinition Width="3*"/>
+                        <ColumnDefinition Width="174*"/>
+                        <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
 
-                    <TextBox x:Name="tb_fname" HorizontalAlignment="Left" Height="23" Margin="231,28,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="205" Grid.Column="2"/>
-                    <TextBox x:Name="tb_lname" HorizontalAlignment="Left" Height="23" Margin="231,54,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="205" Grid.Column="2"/>
-                    <TextBox x:Name="tb_address" HorizontalAlignment="Left" Height="23" Margin="231,80,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="205" Grid.Column="2"/>
-                    <TextBox x:Name="tb_tel" HorizontalAlignment="Left" Height="23" Margin="231,106,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="205" Grid.Column="2"/>
-                    <DatePicker x:Name="dp_birth" HorizontalAlignment="Left" Margin="231,131,0,0" VerticalAlignment="Top" SelectedDateFormat="Short" Grid.Column="2" BorderBrush="{x:Null}" Background="#FF7FA49D" FirstDayOfWeek="Monday" Height="26" Width="208" Foreground="Black"/>
-                    <Label x:Name="lb_id" Content="" HorizontalAlignment="Left" Margin="157,187,0,0" VerticalAlignment="Top" Visibility="Hidden" Grid.Column="2" Height="26" Width="186" RenderTransformOrigin="0.5,0.5">
+                    <TextBox x:Name="tb_fname" HorizontalAlignment="Left" Height="23" Margin="301,28,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="205" Background="White"/>
+                    <TextBox x:Name="tb_lname" HorizontalAlignment="Left" Height="23" Margin="301,54,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="205" Background="White"/>
+                    <TextBox x:Name="tb_address" HorizontalAlignment="Left" Height="23" Margin="301,80,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="205" Background="White"/>
+                    <TextBox x:Name="tb_tel" HorizontalAlignment="Left" Height="23" Margin="301,106,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="205" Background="White" BorderBrush="#FFABADB3"/>
+                    <DatePicker x:Name="dp_birth" HorizontalAlignment="Left" Margin="301,131,0,0" VerticalAlignment="Top" SelectedDateFormat="Short" BorderBrush="{x:Null}" Background="{x:Null}" FirstDayOfWeek="Monday" Height="26" Width="208" Foreground="Black"/>
+                    <Label x:Name="lb_id" Content="" HorizontalAlignment="Left" Margin="227,187,0,0" VerticalAlignment="Top" Visibility="Hidden" Height="26" Width="186" RenderTransformOrigin="0.5,0.5">
                         <Label.RenderTransform>
                             <TransformGroup>
                                 <TranslateTransform Y="-0.001"/>
@@ -35,37 +33,43 @@
                     </Label>
 
 
-                    <ListBox x:Name="lbox_patients" Height="248" Margin="0,20,327,0" VerticalAlignment="Top" Background="White" BorderBrush="{x:Null}" Foreground="Black" SelectionChanged="patientSelect" Grid.Column="1" Grid.ColumnSpan="2"/>
-                    <Label x:Name="lb_fname" Content="First Name" HorizontalAlignment="Left" Margin="153,25,0,0" VerticalAlignment="Top" Width="73" Grid.Column="2" Height="26"/>
-                    <Label x:Name="lb_lname" Content="Last Name" HorizontalAlignment="Left" Margin="153,51,0,0" VerticalAlignment="Top" Width="73" Grid.Column="2" Height="26"/>
-                    <Label x:Name="lb_address" Content="Address" HorizontalAlignment="Left" Margin="153,77,0,0" VerticalAlignment="Top" Width="73" Grid.Column="2" Height="26"/>
-                    <Label x:Name="l_patients" Content="Patients" HorizontalAlignment="Left" Margin="62,-6,0,0" VerticalAlignment="Top" Width="60" FontSize="14" Grid.Column="1" Height="26" RenderTransformOrigin="0.5,0.5" Background="{x:Null}" Grid.ColumnSpan="2"/>
-                    <Label x:Name="lb_address_Copy" Content="Date of Birth" HorizontalAlignment="Left" Margin="153,131,0,0" VerticalAlignment="Top" Width="78" Grid.Column="2" Height="26"/>
-                    <Label x:Name="lb_address_Copy1" Content="Telephone" HorizontalAlignment="Left" Margin="153,103,0,0" VerticalAlignment="Top" Width="69" Grid.Column="2" Height="25"/>
-                    <Button x:Name="btn_modify" Content="Modify" HorizontalAlignment="Left" Margin="361,162,0,0" VerticalAlignment="Top" Width="75" Grid.Column="2" Click="modifyPatient" Height="22"/>
-                    <CheckBox x:Name="cbox_new" Content="New patient" HorizontalAlignment="Left" Margin="157,165,0,0" VerticalAlignment="Top" Grid.Column="2" Click="newPatientCheck" Height="19" Width="84"/>
-                    <ComboBox x:Name="cb_sex" HorizontalAlignment="Left" Margin="241,162,0,0" VerticalAlignment="Top" Width="120" Grid.Column="2" SelectedIndex="0" Height="22" Visibility="Hidden">
+                    <ListBox x:Name="lbox_patients" Height="248" Margin="4,20,318,0" VerticalAlignment="Top" Background="White" BorderBrush="{x:Null}" Foreground="Black" SelectionChanged="patientSelect" FontFamily="Microsoft YaHei UI Light" FontSize="16"/>
+                    <Label x:Name="lb_fname" Content="First Name" HorizontalAlignment="Left" Margin="223,25,0,0" VerticalAlignment="Top" Width="73" Height="26" Foreground="#FFBBBBBB" FontFamily="Microsoft YaHei UI Light"/>
+                    <Label x:Name="lb_lname" Content="Last Name" HorizontalAlignment="Left" Margin="223,51,0,0" VerticalAlignment="Top" Width="73" Height="26" Foreground="#FFBBBBBB" FontFamily="Microsoft YaHei UI Light"/>
+                    <Label x:Name="lb_address" Content="Address" HorizontalAlignment="Left" Margin="223,77,0,0" VerticalAlignment="Top" Width="73" Height="26" Foreground="#FFBBBBBB" FontFamily="Microsoft YaHei UI Light"/>
+                    <Label x:Name="l_patients" Content="Patients" HorizontalAlignment="Left" Margin="66,-6,0,0" VerticalAlignment="Top" Width="60" FontSize="14" Height="26" RenderTransformOrigin="0.5,0.5" Background="{x:Null}" Foreground="#FFBBBBBB" FontFamily="Microsoft YaHei UI Light"/>
+                    <Label x:Name="lb_address_Copy" Content="Date of Birth" HorizontalAlignment="Left" Margin="223,131,0,0" VerticalAlignment="Top" Width="78" Height="26" Foreground="#FFBBBBBB" FontFamily="Microsoft YaHei UI Light"/>
+                    <Label x:Name="lb_address_Copy1" Content="Telephone" HorizontalAlignment="Left" Margin="223,103,0,0" VerticalAlignment="Top" Width="69" Height="25" Foreground="#FFBBBBBB" FontFamily="Microsoft YaHei UI Light"/>
+                    <Button x:Name="btn_modify" Content="Modify" HorizontalAlignment="Left" Margin="431,162,0,0" VerticalAlignment="Top" Width="75" Click="modifyPatient" Height="22" FontFamily="Microsoft YaHei UI Light"/>
+                    <CheckBox x:Name="cbox_new" Content="New patient" HorizontalAlignment="Left" Margin="227,165,0,0" VerticalAlignment="Top" Click="newPatientCheck" Height="19" Width="87" Foreground="#FFBBBBBB" FontFamily="Microsoft YaHei UI Light"/>
+                    <ComboBox x:Name="cb_sex" HorizontalAlignment="Left" Margin="311,162,0,0" VerticalAlignment="Top" Width="120" SelectedIndex="0" Height="22" Visibility="Hidden">
                         <System:String>men</System:String>
                         <System:String>women</System:String>
                     </ComboBox>
-                    <Button x:Name="btn_delete" Content="Delete" HorizontalAlignment="Left" Margin="361,189,0,0" VerticalAlignment="Top" Width="75" Grid.Column="2" Click="deletePatient" Height="22"/>
-                    <TextBox x:Name="tb_search" HorizontalAlignment="Left" Height="23" Margin="0,273,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="144" Grid.Column="1" BorderBrush="{x:Null}" Foreground="Black" TextChanged="searchTextChanged" Grid.ColumnSpan="2"/>
-                    <Button x:Name="btn_search" Content="Search" HorizontalAlignment="Left" Margin="83,273,0,0" VerticalAlignment="Top" Width="42" Height="22" Grid.Column="2" Click="searchPatient"/>
-                    <TextBox x:Name="tb_info" HorizontalAlignment="Left" Height="76" Margin="157,216,0,0" TextWrapping="Wrap" Text="Information goes here..." VerticalAlignment="Top" Width="279" Grid.Column="2" Background="#FFB1B1B1" SelectionBrush="#FF007DFA" BorderBrush="#FFBCBCBC"/>
+                    <Button x:Name="btn_delete" Content="Delete" HorizontalAlignment="Left" Margin="431,189,0,0" VerticalAlignment="Top" Width="75" Click="deletePatient" Height="22" FontFamily="Microsoft YaHei UI Light"/>
+                    <TextBox x:Name="tb_search" HorizontalAlignment="Left" Height="23" Margin="4,273,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="144" BorderBrush="{x:Null}" Foreground="Black" TextChanged="searchTextChanged" Background="White"/>
+                    <Button x:Name="btn_search" Content="Search" HorizontalAlignment="Left" Margin="153,273,0,0" VerticalAlignment="Top" Width="51" Height="22" Click="searchPatient" FontFamily="Microsoft YaHei UI Light"/>
+                    <TextBox x:Name="tb_info" HorizontalAlignment="Left" Height="76" Margin="227,216,0,0" TextWrapping="Wrap" Text="Information goes here..." VerticalAlignment="Top" Width="279" Background="#FFB1B1B1" SelectionBrush="#FF007DFA" BorderBrush="#FFBCBCBC" IsEnabled="False" FontFamily="Microsoft YaHei UI Light"/>
                 </Grid>
             </TabItem>
 
 
 
-            <TabItem x:Name="tb_newPatient" Header="Replays" HorizontalAlignment="Left" Width="80">
-                <Grid>
-                    <Label x:Name="lb_patient_name" Content="Patient" HorizontalAlignment="Left" Margin="216,0,0,0" VerticalAlignment="Top" FontSize="22"/>
-                    <DataGrid x:Name="dg_replays" HorizontalAlignment="Left" Height="156" Margin="10,144,0,0" VerticalAlignment="Top" Width="505">
+            <TabItem x:Name="tb_replays" Header="Replays" HorizontalAlignment="Left" Width="80" Background="#FFECEDEE" Foreground="Black" FontFamily="Microsoft YaHei UI Light" IsEnabled="False">
+                <Grid x:Name="grid_playback" Visibility="Visible">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="9*"/>
+                        <ColumnDefinition Width="443*"/>
+                        <ColumnDefinition Width="73*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="301*"/>
+                        <RowDefinition Height="9*"/>
+                    </Grid.RowDefinitions>
+                    <Label x:Name="lb_patient_name" Content="Patient" HorizontalAlignment="Left" Margin="207,0,0,0" VerticalAlignment="Top" FontSize="22" Foreground="#FFBBBBBB" Height="38" Width="78" Grid.Column="1"/>
+                    <DataGrid x:Name="dg_replays" DataContext="replays" HorizontalAlignment="Left" Height="198" Margin="0,102,0,0" VerticalAlignment="Top" Width="443" Grid.Column="1">
                         <DataGrid.Columns>
-                            <DataGridTextColumn Header="Name" Binding="{Binding name}"/>
-                            <DataGridTextColumn Header="Date" Binding="{Binding date}"/>
                         </DataGrid.Columns>
-
                     </DataGrid>
                 </Grid>
             </TabItem>

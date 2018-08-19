@@ -28,6 +28,7 @@ namespace Thesis
 
         private DBConnect con;
         private PatientController p_controller;
+        private ReplayController r_controller;
 
 //--------------------------------------------
 //***MAIN***
@@ -48,6 +49,9 @@ namespace Thesis
         {
             con = new DBConnect();
             p_controller = new PatientController();
+            r_controller = new ReplayController();
+
+            
         }
         private void initializeListBox()
         {
@@ -114,9 +118,12 @@ namespace Thesis
                 lb_id.Content = a;
                 */
                 fillLabels(lbox_patients.SelectedIndex);
+
+                tb_replays.IsEnabled = true;
             }
             else
             {
+                tb_replays.IsEnabled = false;
             }
             
         }
@@ -174,12 +181,14 @@ namespace Thesis
                 btn_modify.Content = "Add";
                 cb_sex.Visibility = Visibility.Visible;
                 lbox_patients.SelectedIndex = -1;
+                lbox_patients.IsEnabled = false;
                 clearAllTextBox();
             }
             else
             {
                 btn_modify.Content = "Modify";
                 cb_sex.Visibility = Visibility.Hidden;
+                lbox_patients.IsEnabled = true;
             }
         }
 
@@ -266,14 +275,18 @@ namespace Thesis
 
         private void tabSelected(object sender, SelectionChangedEventArgs e)
         {
-            if(tabControl.SelectedIndex == 1)
+            if(tabControl.SelectedIndex == 1 && lbox_patients.SelectedIndex > -1)
             {
                 fillReplays();
             }
         }
         private void fillReplays()
         {
+            int p_id = Int32.Parse(lb_id.Content.ToString());
 
+            List<Replay> replays = r_controller.getPatientReplays(p_id,con);
+
+            dg_replays.ItemsSource = replays;
         }
     }
 }

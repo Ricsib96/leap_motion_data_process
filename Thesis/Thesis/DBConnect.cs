@@ -21,6 +21,7 @@ namespace Thesis
         private const string PASSWORD = "admin";
 
         private const string TABLE_PATIENTS = "patients";
+        private const string TABLE_REPLAYS = "replays";
 
         private const string COL_ID = "id";
         private const string COL_FIRST_NAME = "first_name";
@@ -29,6 +30,12 @@ namespace Thesis
         private const string COL_BIRTH = "birth";
         private const string COL_SEX = "sex";
         private const string COL_TEL_NUMBER = "tel_number";
+
+        private const string COL_FILE_NAME = "file_name";
+        private const string COL_PATH = "path";
+        private const string COL_RECORD_DATE = "record_date";
+        private const string COL_PATIENT_ID = "patient_id";
+        private const string COL_DETAIL = "detail";
 
         //Constructor
         public DBConnect()
@@ -277,6 +284,35 @@ namespace Thesis
                 CloseConnection();
             }
 
+        }
+        
+        public List<Replay> getPatientReplays(int id)
+        {
+            string query = "SELECT * FROM " + TABLE_REPLAYS + " " +
+                            "WHERE " + COL_PATIENT_ID + " = '" + id + "'";
+
+            List<Replay> list = new List<Replay>();
+
+            if (this.OpenConnection())
+            {
+                MySqlCommand cmd = new MySqlCommand(query, connection);
+                MySqlDataReader reader = cmd.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    Replay temp = new Replay();
+
+                    temp.Id = reader.GetInt32(COL_ID);
+                    temp.File_name = reader.GetString(COL_FILE_NAME);
+                    temp.Path = reader.GetString(COL_PATH);
+                    temp.Record_date = reader.GetString(COL_RECORD_DATE);
+                    temp.Detail = reader.GetString(COL_DETAIL);
+
+                    list.Add(temp);
+                }
+                CloseConnection();
+            }
+            return list;
         }
 
         //Count statement

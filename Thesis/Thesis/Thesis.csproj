@@ -60,6 +60,7 @@
     </ApplicationDefinition>
     <Compile Include="PatientController.cs" />
     <Compile Include="Replay.cs" />
+    <Compile Include="ReplayController.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
