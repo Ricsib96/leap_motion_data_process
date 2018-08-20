@@ -278,6 +278,7 @@ namespace Thesis
             if(tabControl.SelectedIndex == 1 && lbox_patients.SelectedIndex > -1)
             {
                 fillReplays();
+                lb_patient_name.Content = lbox_patients.SelectedItem;
             }
         }
         private void fillReplays()
@@ -287,6 +288,17 @@ namespace Thesis
             List<Replay> replays = r_controller.getPatientReplays(p_id,con);
 
             dg_replays.ItemsSource = replays;
+        }
+
+        private void dg_replays_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            Trace.WriteLine(dg_replays.SelectedIndex);
+           
+        }
+
+        private void dg_replays_SelectedCellsChanged(object sender, SelectedCellsChangedEventArgs e)
+        {
+            Trace.WriteLine(dg_replays.SelectedIndex);
         }
     }
 }

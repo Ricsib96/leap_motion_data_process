@@ -9,6 +9,13 @@ namespace Thesis
     class Replay
     {
 
+        public int Id { get; set; }
+        public string File_name { get; set; }
+        public string Path { get; set; }
+        public string Record_date { get; set; }
+        public string Detail { get; set; }
+        public int Patient_id { get; set; }
+        /*
         private int id;
         private string file_name;
         private string path;
@@ -16,13 +23,14 @@ namespace Thesis
         private string detail;
         private int patient_id;
 
-        public int Id { get => id; set => id = value; }
-        public string File_name { get => file_name; set => file_name = value; }
-        public string Path { get => path; set => path = value; }
-        public string Record_date { get => record_date; set => record_date = value; }
-        public string Detail { get => detail; set => detail = value; }
-        public int Patient_id { get => patient_id; set => patient_id = value; }
 
+            public int Id { get => id; set => id = value; }
+            public string File_name { get => file_name; set => file_name = value; }
+            public string Path { get => path; set => path = value; }
+            public string Record_date { get => record_date; set => record_date = value; }
+            public string Detail { get => detail; set => detail = value; }
+            public int Patient_id { get => patient_id; set => patient_id = value; }
+            */
 
     }
 }

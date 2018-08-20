@@ -56,7 +56,7 @@
 
 
             <TabItem x:Name="tb_replays" Header="Replays" HorizontalAlignment="Left" Width="80" Background="#FFECEDEE" Foreground="Black" FontFamily="Microsoft YaHei UI Light" IsEnabled="False">
-                <Grid x:Name="grid_playback" Visibility="Visible">
+                <Grid x:Name="grid_playback" IsHitTestVisible="True">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="9*"/>
                         <ColumnDefinition Width="443*"/>
@@ -66,10 +66,34 @@
                         <RowDefinition Height="301*"/>
                         <RowDefinition Height="9*"/>
                     </Grid.RowDefinitions>
-                    <Label x:Name="lb_patient_name" Content="Patient" HorizontalAlignment="Left" Margin="207,0,0,0" VerticalAlignment="Top" FontSize="22" Foreground="#FFBBBBBB" Height="38" Width="78" Grid.Column="1"/>
-                    <DataGrid x:Name="dg_replays" DataContext="replays" HorizontalAlignment="Left" Height="198" Margin="0,102,0,0" VerticalAlignment="Top" Width="443" Grid.Column="1">
+                    <Label x:Name="lb_patient_name" Content="Patient" HorizontalContentAlignment="Center" HorizontalAlignment="Left" Margin="74,1,0,0" VerticalAlignment="Top" FontSize="22" Foreground="#FFBBBBBB" Height="38" Width="348" Grid.Column="1" RenderTransformOrigin="0,0.5">
+                        <Label.LayoutTransform>
+                            <TransformGroup>
+                                <ScaleTransform/>
+                                <SkewTransform/>
+                                <RotateTransform/>
+                                <TranslateTransform X="2"/>
+                            </TransformGroup>
+                        </Label.LayoutTransform>
+                        <Label.RenderTransform>
+                            <TransformGroup>
+                                <ScaleTransform/>
+                                <SkewTransform AngleY="-0.156"/>
+                                <RotateTransform/>
+                                <TranslateTransform Y="-0.664"/>
+                            </TransformGroup>
+                        </Label.RenderTransform>
+                    </Label>
+                    <DataGrid x:Name="dg_replays" HorizontalAlignment="Left" AutoGenerateColumns="False" Height="198" Margin="0,102,0,0" VerticalAlignment="Top" Width="443" Grid.Column="1" Background="#FFD8D7D7" BorderBrush="{x:Null}" GridLinesVisibility="Horizontal" HorizontalGridLinesBrush="#FF6C6C6C" FontSize="16" SelectionChanged="dg_replays_SelectionChanged" IsReadOnly="True" IsSynchronizedWithCurrentItem="False" AlternationCount="2" AlternatingRowBackground="#FFC3C3C3" RowBackground="#FFDCDADA" IsTextSearchEnabled="True" SelectedCellsChanged="dg_replays_SelectedCellsChanged" SelectionMode="Single" IsHitTestVisible="True">
                         <DataGrid.Columns>
+                            <DataGridTextColumn Header="Name" Binding="{Binding File_name}" />
+                            <DataGridTextColumn Header="Recorded at" Binding="{Binding Record_date}" />
                         </DataGrid.Columns>
+                        <DataGrid.RowDetailsTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Detail}" Margin="10" />
+                            </DataTemplate>
+                        </DataGrid.RowDetailsTemplate>
                     </DataGrid>
                 </Grid>
             </TabItem>
