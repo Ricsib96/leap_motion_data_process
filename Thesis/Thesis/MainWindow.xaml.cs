@@ -77,7 +77,7 @@ namespace Thesis
                 p_controller.addId(p.Id);
                 Trace.WriteLine(p.Id);
 
-                String name = p.First_name + " " + p.Last_name + " " + p.Id;
+                String name = p.First_name + " " + p.Last_name;
                 lbox_patients.Items.Add(name);
             }
         }
@@ -169,6 +169,9 @@ namespace Thesis
             {
                 writeInformation("A data field is empty!");
             }
+
+            lbox_patients.IsEnabled = true;
+
         }
 
         /*
