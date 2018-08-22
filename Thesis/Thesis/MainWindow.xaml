@@ -121,7 +121,9 @@
                             </TransformGroup>
                         </Label.RenderTransform>
                     </Label>
-                    <Button x:Name="btn_record" Content="Record" HorizontalAlignment="Left" Margin="529,254,0,0" VerticalAlignment="Top" Width="89" Height="32"/>
+                    <Button x:Name="btn_record" Content="Record" HorizontalAlignment="Left" Margin="529,254,0,0" VerticalAlignment="Top" Width="89" Height="32" Click="btn_record_Click">
+                    
+                    </Button>
                     <Button x:Name="btn_playback" Content="Playback" HorizontalAlignment="Left" Margin="529,316,0,0" VerticalAlignment="Top" Width="89" Height="32"/>
                 </Grid>
             </TabItem>

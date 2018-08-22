@@ -29,10 +29,11 @@ namespace Thesis
         private DBConnect con;
         private PatientController p_controller;
         private ReplayController r_controller;
+        private PipeServer server;
 
-//--------------------------------------------
-//***MAIN***
-//--------------------------------------------
+        //--------------------------------------------
+        //***MAIN***
+        //--------------------------------------------
 
 
         public MainWindow()
@@ -50,7 +51,7 @@ namespace Thesis
             con = new DBConnect();
             p_controller = new PatientController();
             r_controller = new ReplayController();
-
+            server = new PipeServer();
             
         }
         private void initializeListBox()
@@ -287,7 +288,6 @@ namespace Thesis
         private void fillReplays()
         {
             int p_id = Int32.Parse(lb_id.Content.ToString());
-
             List<Replay> replays = r_controller.getPatientReplays(p_id,con);
 
             dg_replays.ItemsSource = replays;
@@ -298,10 +298,17 @@ namespace Thesis
             Trace.WriteLine(dg_replays.SelectedIndex);
            
         }
-
-        private void dg_replays_SelectedCellsChanged(object sender, SelectedCellsChangedEventArgs e)
+    
+        private void btn_record_Click(object sender, RoutedEventArgs e)
         {
-            Trace.WriteLine(dg_replays.SelectedIndex);
+            
+            Process.Start(@"E:\sensors_lm_k2_02\sensors\bin\Debug\sensors.exe");
+            server.StartServer("asd.csv");
+        }
+
+        private void setButtonIcon(Button btn, Image img)
+        {
+           
         }
     }
 }
