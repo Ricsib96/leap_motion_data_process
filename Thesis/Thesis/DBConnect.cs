@@ -182,6 +182,39 @@ namespace Thesis
             }
 
         }
+        public Patient getLastPatient()
+        {
+            string query = "SELECT * FROM " + TABLE_PATIENTS +
+                            " ORDER BY " + COL_ID + " DESC " + 
+                            "LIMIT 1";
+            OpenConnection();
+
+            Patient temp = new Patient();
+
+            if (this.OpenConnection())
+            {
+                MySqlCommand cmd = new MySqlCommand(query, connection);
+                MySqlDataReader reader = cmd.ExecuteReader();
+
+
+                while (reader.Read())
+                {
+                    temp.Id = reader.GetInt32(COL_ID);
+                    temp.First_name = reader.GetString(COL_FIRST_NAME);
+                    temp.Last_name = reader.GetString(COL_LAST_NAME);
+                    temp.Address = reader.GetString(COL_ADDRESS);
+                    temp.Birth = reader.GetString(COL_BIRTH);
+                    temp.Tel_number = reader.GetString(COL_TEL_NUMBER);
+                    temp.Sex = reader.GetString(COL_SEX);
+                }
+                
+
+                CloseConnection();
+
+                
+            }
+            return temp;
+        }
         //Delete statement
         public void Delete()
         {

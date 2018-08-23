@@ -34,6 +34,10 @@ namespace Thesis
         {
             return con.getPatientById(id);
         }
+        public Patient getLastPatient(DBConnect con)
+        {
+            return con.getLastPatient();
+        }
         public void updatePatient(Patient patient,DBConnect con)
         {
             con.updatePatient(patient);

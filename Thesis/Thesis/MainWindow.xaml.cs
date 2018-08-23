@@ -29,7 +29,8 @@ namespace Thesis
         private DBConnect con;
         private PatientController p_controller;
         private ReplayController r_controller;
-        private PipeServer server;
+        private PipeServer pipeServer;
+        private FTPClient ftpClient;
 
         //--------------------------------------------
         //***MAIN***
@@ -51,8 +52,9 @@ namespace Thesis
             con = new DBConnect();
             p_controller = new PatientController();
             r_controller = new ReplayController();
-            server = new PipeServer();
-            
+            pipeServer = new PipeServer();
+            ftpClient = new FTPClient("admin", "admin", "ftp://localhost", 14147);
+
         }
         private void initializeListBox()
         {
@@ -161,6 +163,10 @@ namespace Thesis
                     cbox_new.IsChecked = false;
                     cb_sex.Visibility = Visibility.Hidden;
                     btn_modify.Content = "Modify";
+
+                    Patient temp = p_controller.getLastPatient(con);
+                    string dirName = temp.Id.ToString() + "_" + temp.First_name + " " + temp.Last_name;
+                    ftpClient.createDir(dirName);
 
                     writeInformation("New patient has been added succesfully!");
                 }
@@ -301,13 +307,18 @@ namespace Thesis
     
         private void btn_record_Click(object sender, RoutedEventArgs e)
         {
-            
-            Process.Start(@"E:\sensors_lm_k2_02\sensors\bin\Debug\sensors.exe");
-            server.StartServer("asd.csv");
-        }
 
-        private void setButtonIcon(Button btn, Image img)
-        {
+            //Process.Start(@"E:\sensors_lm_k2_02\sensors\bin\Debug\sensors.exe");
+            //server.StartServer("asd.csv");
+
+            string file =  "testName" + 
+                                ".txt";
+            string dir =    p_controller.Patient_ids.ElementAt(lbox_patients.SelectedIndex).ToString() +
+                            "_" +
+                            lbox_patients.SelectedItem.ToString();
+
+            //ftpClient.createDir(dir);
+            ftpClient.upload(dir + "/" + file , @"E:\test2.txt");
            
         }
     }
