@@ -18,5 +18,9 @@ namespace Thesis
         {
             return con.getPatientReplays(id);
         }
+        public void addReplay(Replay replay, DBConnect con)
+        {
+            con.addReplay(replay);
+        }
     }
 }

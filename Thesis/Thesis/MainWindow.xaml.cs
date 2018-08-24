@@ -268,7 +268,8 @@ namespace Thesis
          */
         public void writeInformation(string info)
         {
-            tb_info.Text = info;
+            MessageBox.Show(info,"Error");
+            //tb_info.Text = info;
         }
 
         /*
@@ -307,7 +308,33 @@ namespace Thesis
     
         private void btn_record_Click(object sender, RoutedEventArgs e)
         {
+            if(lb_filename.Content.ToString().Length > 0
+                || lb_details.Content.ToString().Length > 0)
+            {
 
+                Replay replay = new Replay();
+
+                replay.File_name = tb_filename.Text;
+                replay.Path = p_controller.Patient_ids.ElementAt(lbox_patients.SelectedIndex).ToString() +
+                            "_" +
+                            lbox_patients.SelectedItem.ToString() + 
+                            "/" +
+                            tb_filename.Text + 
+                            ".txt";
+                replay.Record_date = DateTime.Now.ToString();
+                replay.Detail = tb_details.Text;
+                replay.Patient_id = p_controller.Patient_ids.ElementAt(lbox_patients.SelectedIndex);
+
+                r_controller.addReplay(replay, con);
+
+                ftpClient.upload(replay.Path, @"E:\test2.txt");
+                fillReplays();
+
+            }
+            else
+            {
+                writeInformation("A data field is empty!");
+            }
             //Process.Start(@"E:\sensors_lm_k2_02\sensors\bin\Debug\sensors.exe");
             //server.StartServer("asd.csv");
 

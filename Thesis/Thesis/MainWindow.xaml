@@ -9,10 +9,9 @@
         Title="Leap Motion Data Process" Height="504" Width="707.267" Background="#FFECECEC" ResizeMode="CanMinimize">
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="670*"/>
-            <ColumnDefinition Width="31*"/>
+            <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <TabControl x:Name="tabControl" Height="475" Width="auto" Grid.Row="0" BorderBrush="#FFFBFBFB" Background="#FF252526" RenderTransformOrigin="0.497,0.494" SelectionChanged="tabSelected" VerticalAlignment="Top" Grid.ColumnSpan="2">
+        <TabControl x:Name="tabControl" Height="475" Width="auto" Grid.Row="0" BorderBrush="#FFFBFBFB" Background="#FF252526" RenderTransformOrigin="0.497,0.494" SelectionChanged="tabSelected" VerticalAlignment="Top">
             <TabItem x:Name="tb_main" Header="Patients" Height="23" VerticalAlignment="Top" FontFamily="Microsoft YaHei UI Light" FontSize="16">
                 <Grid Margin="0,0,0,-2">
                     <Grid.ColumnDefinitions>
@@ -58,8 +57,8 @@
                     <Button x:Name="btn_delete" Content="Delete" HorizontalAlignment="Left" Margin="593,272,0,0" VerticalAlignment="Top" Width="88" Click="deletePatient" Height="30" FontFamily="Microsoft YaHei UI Light" FontSize="16"/>
                     <TextBox x:Name="tb_search" HorizontalAlignment="Left" Height="33" Margin="10,387,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="170" BorderBrush="{x:Null}" Foreground="Black" TextChanged="searchTextChanged" Background="White" FontSize="16"/>
                     <Button x:Name="btn_search" Content="Search" HorizontalAlignment="Left" Margin="185,387,0,0" VerticalAlignment="Top" Width="62" Height="33" Click="searchPatient" FontFamily="Microsoft YaHei UI Light" FontSize="16"/>
-                    <TextBox x:Name="tb_info" HorizontalAlignment="Left" Height="113" Margin="275,307,0,0" TextWrapping="Wrap" Text="Information goes here..." VerticalAlignment="Top" Width="406" Background="#FFB1B1B1" SelectionBrush="#FF007DFA" BorderBrush="#FFBCBCBC" IsEnabled="False" FontFamily="Microsoft YaHei UI Light" FontSize="18"/>
                     <Label x:Name="lb_date" Content="Date of Birth" HorizontalAlignment="Left" Margin="275,199,0,0" VerticalAlignment="Top" Width="105" Height="28" Foreground="#FFBBBBBB" FontFamily="Microsoft YaHei UI Light" FontSize="16"/>
+                    <Image x:Name="image" Height="113" Margin="281,302,95,0" VerticalAlignment="Top" Source="/img/leap.png"/>
                 </Grid>
             </TabItem>
 
@@ -74,7 +73,7 @@
                         <RowDefinition Height="301*"/>
                         <RowDefinition Height="9*"/>
                     </Grid.RowDefinitions>
-                    <Label x:Name="lb_patient_name" Content="Patient" HorizontalContentAlignment="Center" Margin="173,-2,174,394" VerticalAlignment="Bottom" FontSize="22" Foreground="#FFBBBBBB" Height="38" RenderTransformOrigin="0,0.5">
+                    <Label x:Name="lb_patient_name" Content="Patient" HorizontalContentAlignment="Center" Margin="174,9,173,383" FontSize="22" Foreground="#FFBBBBBB" RenderTransformOrigin="0,0.5">
                         <Label.LayoutTransform>
                             <TransformGroup>
                                 <ScaleTransform/>
@@ -92,7 +91,7 @@
                             </TransformGroup>
                         </Label.RenderTransform>
                     </Label>
-                    <DataGrid x:Name="dg_replays" HorizontalAlignment="Left" AutoGenerateColumns="False" Height="270" Margin="10,160,0,0" VerticalAlignment="Top" Width="432" Background="#FFD8D7D7" BorderBrush="{x:Null}" GridLinesVisibility="Horizontal" HorizontalGridLinesBrush="#FF6C6C6C" FontSize="16" SelectionChanged="dg_replays_SelectionChanged" IsReadOnly="True" IsSynchronizedWithCurrentItem="False" AlternationCount="2" AlternatingRowBackground="#FFC3C3C3" RowBackground="#FFDCDADA" IsTextSearchEnabled="True" SelectionMode="Single" IsHitTestVisible="True" FontWeight="Bold" RowDetailsVisibilityMode="Visible">
+                    <DataGrid x:Name="dg_replays" HorizontalAlignment="Left" AutoGenerateColumns="False" Margin="10,85,0,31" Width="432" Background="#FFD8D7D7" BorderBrush="{x:Null}" GridLinesVisibility="Horizontal" HorizontalGridLinesBrush="#FF6C6C6C" FontSize="16" SelectionChanged="dg_replays_SelectionChanged" IsReadOnly="True" IsSynchronizedWithCurrentItem="False" AlternationCount="2" AlternatingRowBackground="#FFC3C3C3" RowBackground="#FFDCDADA" IsTextSearchEnabled="True" SelectionMode="Single" IsHitTestVisible="True" FontWeight="Bold" RowDetailsVisibilityMode="Visible">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Name" Binding="{Binding File_name}" />
                             <DataGridTextColumn Header="Recorded at" Binding="{Binding Record_date}" />
@@ -103,7 +102,7 @@
                             </DataTemplate>
                         </DataGrid.RowDetailsTemplate>
                     </DataGrid>
-                    <Label x:Name="lb_replays" Content="Replays" Margin="8,0,580,267" VerticalAlignment="Bottom" FontSize="20" Foreground="#FFBBBBBB" Height="35" RenderTransformOrigin="0,0.5">
+                    <Label x:Name="lb_replays" Content="Replays" Margin="11,0,577,342" VerticalAlignment="Bottom" FontSize="20" Foreground="#FFBBBBBB" Height="35" RenderTransformOrigin="0,0.5">
                         <Label.LayoutTransform>
                             <TransformGroup>
                                 <ScaleTransform/>
@@ -121,10 +120,12 @@
                             </TransformGroup>
                         </Label.RenderTransform>
                     </Label>
-                    <Button x:Name="btn_record" Content="Record" HorizontalAlignment="Left" Margin="529,254,0,0" VerticalAlignment="Top" Width="89" Height="32" Click="btn_record_Click">
-                    
-                    </Button>
-                    <Button x:Name="btn_playback" Content="Playback" HorizontalAlignment="Left" Margin="529,316,0,0" VerticalAlignment="Top" Width="89" Height="32"/>
+                    <Button x:Name="btn_record" Content="Record" Margin="527,321,79,0" VerticalAlignment="Top" Height="32" Click="btn_record_Click"/>
+                    <Button x:Name="btn_playback" Content="Playback" Margin="527,367,79,0" VerticalAlignment="Top" Height="32"/>
+                    <TextBox x:Name="tb_filename" Height="32" Margin="460,120,10,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
+                    <Label x:Name="lb_filename" Content="File name" Margin="460,85,115,0" VerticalAlignment="Top" Foreground="#FFBBBBBB" FontSize="20" RenderTransformOrigin="0.425,2.486"/>
+                    <Label x:Name="lb_details" Content="Details" Margin="460,157,115,0" VerticalAlignment="Top" Foreground="#FFBBBBBB" FontSize="20" RenderTransformOrigin="0.425,2.486"/>
+                    <TextBox x:Name="tb_details" Height="115" Margin="460,192,10,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
                 </Grid>
             </TabItem>
         </TabControl>

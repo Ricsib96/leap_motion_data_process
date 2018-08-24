@@ -347,6 +347,29 @@ namespace Thesis
             }
             return list;
         }
+        public void addReplay(Replay replay)
+        {
+            string query = "INSERT INTO " + TABLE_REPLAYS +
+                            "(" + COL_FILE_NAME + "," +
+                            COL_PATH + "," + COL_RECORD_DATE + "," +
+                            COL_DETAIL + "," + COL_PATIENT_ID + ") " +
+                            "VALUES('" + replay.File_name + "','" +
+                                            replay.Path + "','" +
+                                            replay.Record_date + "','" +
+                                            replay.Detail + "','" +
+                                            replay.Patient_id + "')";
+
+            OpenConnection();
+            if (this.OpenConnection())
+            {
+                MySqlCommand cmd = new MySqlCommand(query, connection);
+                Trace.Write(query);
+                cmd.ExecuteNonQuery();
+                Trace.Write(query);
+                CloseConnection();
+            }
+
+        }
 
         //Count statement
         /*    public int Count()
