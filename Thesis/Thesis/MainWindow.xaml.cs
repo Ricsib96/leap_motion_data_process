@@ -320,17 +320,42 @@ namespace Thesis
 
         private void btn_playback_Click(object sender, RoutedEventArgs e)
         {
-            SaveFileDialog saveFileDialog = new SaveFileDialog();
-            saveFileDialog.InitialDirectory = @"C:\";
-            saveFileDialog.Title = "Save File";
-            saveFileDialog.CheckPathExists = true;
-            saveFileDialog.DefaultExt = "txt";
-            saveFileDialog.Filter = "Text files (*.txt)|*.txt|CSV files (*.*)|*.csv";
-            saveFileDialog.FilterIndex = 1;
-            saveFileDialog.RestoreDirectory = true;
+                            
+            if(dg_replays.SelectedIndex > -1)
+            {
 
-            saveFileDialog.ShowDialog();
-            Trace.WriteLine(saveFileDialog.FileName);
+                SaveFileDialog saveFileDialog = new SaveFileDialog();
+                saveFileDialog.InitialDirectory = @"C:\";
+                saveFileDialog.Title = "Save File";
+                saveFileDialog.CheckPathExists = true;
+                saveFileDialog.DefaultExt = "txt";
+                saveFileDialog.Filter = "CSV files (*.*)|*.csv";
+                saveFileDialog.FilterIndex = 1;
+                saveFileDialog.RestoreDirectory = true;
+
+                saveFileDialog.ShowDialog();
+                Replay temp = (Replay)dg_replays.SelectedItem;
+                string to = saveFileDialog.FileName;
+                if(to.Length > 0)
+                {
+                    ftpClient.downloadFile(temp.Path, to);
+
+                    pipeServer.StartServer(to);
+                    Process.Start(@"E:\sensors_lm_k2_02\sensors\bin\Debug\Presentation.exe");
+                }
+                else
+                {
+                    writeInformation("The file has not been set!");
+                }
+                
+            }
+            else
+            {
+                writeInformation("Select a replay from the list!");
+            }
+
+            
+            
         }
 
 

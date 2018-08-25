@@ -196,6 +196,21 @@ namespace Thesis
             }
             catch (Exception ex) { Console.WriteLine(ex.ToString()); }
         }
+        public void downloadFile(string from, string to)
+        {
+            FtpWebRequest ftpRequest = (FtpWebRequest)FtpWebRequest.Create(Host + "/" + from);
+            ftpRequest.Credentials = new NetworkCredential(UserName, Password);
+            ftpRequest.UseBinary = true;
+            ftpRequest.UsePassive = true;
+            ftpRequest.KeepAlive = true;
+            ftpRequest.Method = WebRequestMethods.Ftp.DownloadFile;
+
+            using (Stream ftpStream = ftpRequest.GetResponse().GetResponseStream())
+            using (Stream fileStream = File.Create(to))
+            {
+                ftpStream.CopyTo(fileStream);
+            }
+        }
 
     }
 }

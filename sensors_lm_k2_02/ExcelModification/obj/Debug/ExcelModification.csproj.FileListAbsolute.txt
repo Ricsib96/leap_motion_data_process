@@ -1,0 +1,7 @@
+E:\sensors_lm_k2_02\ExcelModification\bin\Debug\ExcelModification.exe.config
+E:\sensors_lm_k2_02\ExcelModification\bin\Debug\ExcelModification.exe
+E:\sensors_lm_k2_02\ExcelModification\bin\Debug\ExcelModification.pdb
+E:\sensors_lm_k2_02\ExcelModification\obj\Debug\ExcelModification.csprojResolveAssemblyReference.cache
+E:\sensors_lm_k2_02\ExcelModification\obj\Debug\ExcelModification.csproj.CoreCompileInputs.cache
+E:\sensors_lm_k2_02\ExcelModification\obj\Debug\ExcelModification.exe
+E:\sensors_lm_k2_02\ExcelModification\obj\Debug\ExcelModification.pdb

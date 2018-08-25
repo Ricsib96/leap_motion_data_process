@@ -15,33 +15,40 @@ namespace Thesis
 
         public void StartServer(string file_name)
         {
-            Task.Factory.StartNew(() =>
+            try
             {
-                bool isWaiting;
-
-                var server = new NamedPipeServerStream("Pipe");
-                server.WaitForConnection();
-                StreamReader reader = new StreamReader(server);
-                StreamWriter writer = new StreamWriter(server);
-
-                writer.WriteLine(file_name);
-                writer.Flush();
-
-                isWaiting = true;
-
-                while(isWaiting)
+                Task.Factory.StartNew(() =>
                 {
-                    string line = reader.ReadLine();
-                    if (line != null || line.Length > 0)
-                    {
-                        Trace.WriteLine(line);
-                        isWaiting = false;
-                    }
-                }
+                    bool isWaiting;
 
-                //server.Close();
-                
-            });
+                    var server = new NamedPipeServerStream("Pipe");
+                    server.WaitForConnection();
+                    StreamReader reader = new StreamReader(server);
+                    StreamWriter writer = new StreamWriter(server);
+
+                    writer.WriteLine(file_name);
+                    writer.Flush();
+
+                    isWaiting = true;
+
+                    /*while (isWaiting)
+                    {
+                        string line = reader.ReadLine();
+                        if (line != null || line.Length > 0)
+                        {
+                            Trace.WriteLine(line);
+                            isWaiting = false;
+                        }
+                    } */
+
+                    //server.Close();
+
+                });
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+            }
         }
 
     }

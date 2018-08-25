@@ -1,0 +1,90 @@
+Initialize engine version: 5.6.5f1 (2cac56bf7bb6)
+GfxDevice: creating device client; threaded=1
+Direct3D:
+    Version:  Direct3D 11.0 [level 11.1]
+    Renderer: Intel(R) HD Graphics 4600 (ID=0x416)
+    Vendor:   Intel
+    VRAM:     1040 MB
+    Driver:   10.18.14.4578
+Begin MonoManager ReloadAssembly
+Failed loading assembly Managed/UnityEngine.dll
+Loading script assembly "Managed/UnityEngine.dll" failed!
+ 
+(Filename: C:/buildslave/unity/build/Runtime/Mono/MonoManager.cpp Line: 916)
+
+Crash!!!
+SymInit: Symbol-SearchPath: '.;E:\Dokumentumok\PE\7.f�l�v\Szakdolgozat\leap_motion_data_process\Thesis\Thesis\bin\Debug;E:\sensors_lm_k2_02\sensors\bin\Debug;C:\WINDOWS;C:\WINDOWS\system32;SRV*C:\websymbols*http://msdl.microsoft.com/download/symbols;', symOptions: 530, UserName: 'Ricsi'
+OS-Version: 6.3.9600 () 0x100-0x1
+E:\sensors_lm_k2_02\sensors\bin\Debug\Presentation.exe:Presentation.exe (00250000), size: 19038208 (result: 0), SymType: '-exported-', PDB: 'E:\sensors_lm_k2_02\sensors\bin\Debug\Presentation.exe', fileVersion: 5.6.5.44118
+C:\WINDOWS\SYSTEM32\ntdll.dll:ntdll.dll (77460000), size: 1503232 (result: 0), SymType: '-exported-', PDB: 'C:\WINDOWS\SYSTEM32\ntdll.dll', fileVersion: 6.3.9600.18895
+C:\WINDOWS\SYSTEM32\KERNEL32.DLL:KERNEL32.DLL (74E20000), size: 1310720 (result: 0), SymType: '-nosymbols-', PDB: 'C:\WINDOWS\SYSTEM32\KERNEL32.DLL', fileVersion: 6.3.9600.17415
+C:\WINDOWS\SYSTEM32\KERNELBASE.dll:KERNELBASE.dll (76EA0000), size: 880640 (result: 0), SymType: '-nosymbols-', PDB: 'C:\WINDOWS\SYSTEM32\KERNELBASE.dll', fileVersion: 6.3.9600.18938
+C:\WINDOWS\SYSTEM32\HID.DLL:HID.DLL (72750000), size: 40960 (result: 0), SymType: '-exported-', PDB: 'C:\WINDOWS\SYSTEM32\HID.DLL', fileVersion: 6.3.9600.17415
+C:\WINDOWS\SYSTEM32\USER32.dll:USER32.dll (75620000), size: 1388544 (result: 0), SymType: '-exported-', PDB: 'C:\WINDOWS\SYSTEM32\USER32.dll', fileVersion: 6.3.9600.18535
+C:\WINDOWS\SYSTEM32\VERSION.dll:VERSION.dll (74B10000), size: 32768 (result: 0), SymType: '-nosymbols-', PDB: 'C:\WINDOWS\SYSTEM32\VERSION.dll', fileVersion: 6.3.9600.17415
+C:\WINDOWS\SYSTEM32\ole32.dll:ole32.dll (753B0000), size: 1216512 (result: 0), SymType: '-nosymbols-', PDB: 'C:\WINDOWS\SYSTEM32\ole32.dll', fileVersion: 6.3.9600.18895
+C:\WINDOWS\SYSTEM32\SHLWAPI.dll:SHLWAPI.dll (74F60000), size: 282624 (result: 0), SymType: '-exported-', PDB: 'C:\WINDOWS\SYSTEM32\SHLWAPI.dll', fileVersion: 6.3.9600.17415
+C:\WINDOWS\SYSTEM32\ADVAPI32.dll:ADVAPI32.dll (759E0000), size: 507904 (result: 0), SymType: '-nosymbols-', PDB: 'C:\WINDOWS\SYSTEM32\ADVAPI32.dll', fileVersion: 6.3.9600.18895
+C:\WINDOWS\SYSTEM32\GDI32.dll:GDI32.dll (75050000), size: 1097728 (result: 0), SymType: '-nosymbols-', PDB: 'C:\WINDOWS\SYSTEM32\GDI32.dll', fileVersion: 6.3.9600.18818
+C:\WINDOWS\SYSTEM32\SHELL32.dll:SHELL32.dll (75A60000), size: 19640320 (result: 0), SymType: '-nosymbols-', PDB: 'C:\WINDOWS\SYSTEM32\SHELL32.dll', fileVersion: 6.3.9600.19061
+C:\WINDOWS\SYSTEM32\OPENGL32.dll:OPENGL32.dll (69000000), size: 909312 (result: 0), SymType: '-nosymbols-', PDB: 'C:\WINDOWS\SYSTEM32\OPENGL32.dll', fileVersion: 6.3.9600.17415
+C:\WINDOWS\SYSTEM32\WINMM.dll:WINMM.dll (72880000), size: 143360 (result: 0), SymType: '-nosymbols-', PDB: 'C:\WINDOWS\SYSTEM32\WINMM.dll', fileVersion: 6.3.9600.17415
+C:\WINDOWS\SYSTEM32\WS2_32.dll:WS2_32.dll (76E30000), size: 323584 (result: 0), SymType: '-nosymbols-', PDB: 'C:\WINDOWS\SYSTEM32\WS2_32.dll', fileVersion: 6.3.9600.18340
+C:\WINDOWS\SYSTEM32\OLEAUT32.dll:OLEAUT32.dll (75160000), size: 618496 (result: 0), SymType: '-nosymbols-', PDB: 'C:\WINDOWS\SYSTEM32\OLEAUT32.dll', fileVersion: 6.3.9600.19003
+C:\WINDOWS\SYSTEM32\IMM32.dll:IMM32.dll (77240000), size: 159744 (result: 0), SymType: '-nosymbols-', PDB: 'C:\WINDOWS\SYSTEM32\IMM32.dll', fileVersion: 6.3.9600.17415
+C:\WINDOWS\SYSTEM32\DNSAPI.dll:DNSAPI.dll (72D70000), size: 516096 (result: 0), SymType: '-exported-', PDB: 'C:\WINDOWS\SYSTEM32\DNSAPI.dll', fileVersion: 6.3.9600.19060
+C:\WINDOWS\SYSTEM32\IPHLPAPI.DLL:IPHLPAPI.DLL (74880000), size: 131072 (result: 0), SymType: '-nosymbols-', PDB: 'C:\WINDOWS\SYSTEM32\IPHLPAPI.DLL', fileVersion: 6.3.9600.18264
+C:\WINDOWS\SYSTEM32\WINHTTP.dll:WINHTTP.dll (748A0000), size: 647168 (result: 0), SymType: '-nosymbols-', PDB: 'C:\WINDOWS\SYSTEM32\WINHTTP.dll', fileVersion: 6.3.9600.18895
+C:\WINDOWS\SYSTEM32\msvcrt.dll:msvcrt.dll (772C0000), size: 798720 (result: 0), SymType: '-nosymbols-', PDB: 'C:\WINDOWS\SYSTEM32\msvcrt.dll', fileVersion: 7.0.9600.17415
+C:\WINDOWS\SYSTEM32\combase.dll:combase.dll (76F80000), size: 1560576 (result: 8), SymType: '-unknown-', PDB: '', fileVersion: 6.3.9600.19038
+C:\WINDOWS\SYSTEM32\RPCRT4.dll:RPCRT4.dll (76D70000), size: 761856 (result: 0), SymType: '-nosymbols-', PDB: 'C:\WINDOWS\SYSTEM32\RPCRT4.dll', fileVersion: 6.3.9600.18941
+C:\WINDOWS\SYSTEM32\sechost.dll:sechost.dll (76D20000), size: 266240 (result: 0), SymType: '-nosymbols-', PDB: 'C:\WINDOWS\SYSTEM32\sechost.dll', fileVersion: 6.3.9600.17734
+
+========== OUTPUTING STACK TRACE ==================
+
+  ERROR: SymGetSymFromAddr64, GetLastError: 'A megadott modul nem található.' (Address: 100F1B3C)
+  ERROR: SymGetModuleInfo64, GetLastError: 'Nem sikerült egy dinamikus csatolású függvénytár (DLL) inicializáló rutinját végrehajtani.' (Address: 100F1B3C)
+0x100F1B3C ((<unknown>)) 
+  ERROR: SymGetSymFromAddr64, GetLastError: 'A megadott modul nem található.' (Address: 1005D8FF)
+  ERROR: SymGetModuleInfo64, GetLastError: 'Nem sikerült egy dinamikus csatolású függvénytár (DLL) inicializáló rutinját végrehajtani.' (Address: 1005D8FF)
+0x1005D8FF ((<unknown>)) 
+  ERROR: SymGetSymFromAddr64, GetLastError: 'Érvénytelen cím hozzáférésére tett kísérlet.' (Address: 007AA2B0)
+0x007AA2B0 (Presentation) 
+  ERROR: SymGetSymFromAddr64, GetLastError: 'Érvénytelen cím hozzáférésére tett kísérlet.' (Address: 007A6B22)
+0x007A6B22 (Presentation) 
+  ERROR: SymGetSymFromAddr64, GetLastError: 'Érvénytelen cím hozzáférésére tett kísérlet.' (Address: 0095439D)
+0x0095439D (Presentation) 
+  ERROR: SymGetSymFromAddr64, GetLastError: 'Érvénytelen cím hozzáférésére tett kísérlet.' (Address: 00954E9B)
+0x00954E9B (Presentation) 
+  ERROR: SymGetSymFromAddr64, GetLastError: 'Érvénytelen cím hozzáférésére tett kísérlet.' (Address: 0095505B)
+0x0095505B (Presentation) 
+  ERROR: SymGetSymFromAddr64, GetLastError: 'Érvénytelen cím hozzáférésére tett kísérlet.' (Address: 009552D5)
+0x009552D5 (Presentation) 
+  ERROR: SymGetSymFromAddr64, GetLastError: 'Érvénytelen cím hozzáférésére tett kísérlet.' (Address: 007B27A1)
+0x007B27A1 (Presentation) 
+  ERROR: SymGetSymFromAddr64, GetLastError: 'Érvénytelen cím hozzáférésére tett kísérlet.' (Address: 007B2861)
+0x007B2861 (Presentation) 
+  ERROR: SymGetSymFromAddr64, GetLastError: 'Érvénytelen cím hozzáférésére tett kísérlet.' (Address: 007B4A6E)
+0x007B4A6E (Presentation) 
+  ERROR: SymGetSymFromAddr64, GetLastError: 'Érvénytelen cím hozzáférésére tett kísérlet.' (Address: 003CFDEF)
+0x003CFDEF (Presentation) 
+  ERROR: SymGetSymFromAddr64, GetLastError: 'Érvénytelen cím hozzáférésére tett kísérlet.' (Address: 0034DE88)
+0x0034DE88 (Presentation) 
+  ERROR: SymGetSymFromAddr64, GetLastError: 'Érvénytelen cím hozzáférésére tett kísérlet.' (Address: 003D3CB5)
+0x003D3CB5 (Presentation) 
+  ERROR: SymGetSymFromAddr64, GetLastError: 'Érvénytelen cím hozzáférésére tett kísérlet.' (Address: 00947C3C)
+0x00947C3C (Presentation) 
+  ERROR: SymGetSymFromAddr64, GetLastError: 'Érvénytelen cím hozzáférésére tett kísérlet.' (Address: 002C6EEA)
+0x002C6EEA (Presentation) 
+  ERROR: SymGetSymFromAddr64, GetLastError: 'Érvénytelen cím hozzáférésére tett kísérlet.' (Address: 00AA03F8)
+0x00AA03F8 (Presentation) 
+  ERROR: SymGetSymFromAddr64, GetLastError: 'Érvénytelen cím hozzáférésére tett kísérlet.' (Address: 00ADE084)
+0x00ADE084 (Presentation) 
+  ERROR: SymGetSymFromAddr64, GetLastError: 'Érvénytelen cím hozzáférésére tett kísérlet.' (Address: 74E37C04)
+0x74E37C04 (KERNEL32) 
+0x774BAD8F (ntdll) RtlInitializeExceptionChain
+0x774BAD5A (ntdll) RtlInitializeExceptionChain
+
+========== END OF STACKTRACE ===========
+
+**** Crash! ****

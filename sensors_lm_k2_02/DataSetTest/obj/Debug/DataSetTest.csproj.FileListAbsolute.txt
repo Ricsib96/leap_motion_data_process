@@ -1,0 +1,7 @@
+E:\sensors_lm_k2_02\DataSetTest\bin\Debug\DataSetTest.exe.config
+E:\sensors_lm_k2_02\DataSetTest\bin\Debug\DataSetTest.exe
+E:\sensors_lm_k2_02\DataSetTest\bin\Debug\DataSetTest.pdb
+E:\sensors_lm_k2_02\DataSetTest\obj\Debug\DataSetTest.csprojResolveAssemblyReference.cache
+E:\sensors_lm_k2_02\DataSetTest\obj\Debug\DataSetTest.csproj.CoreCompileInputs.cache
+E:\sensors_lm_k2_02\DataSetTest\obj\Debug\DataSetTest.exe
+E:\sensors_lm_k2_02\DataSetTest\obj\Debug\DataSetTest.pdb
