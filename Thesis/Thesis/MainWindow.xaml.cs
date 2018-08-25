@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Diagnostics;
@@ -32,9 +33,9 @@ namespace Thesis
         private PipeServer pipeServer;
         private FTPClient ftpClient;
 
-        //--------------------------------------------
-        //***MAIN***
-        //--------------------------------------------
+//--------------------------------------------
+//***MAIN***
+//--------------------------------------------
 
 
         public MainWindow()
@@ -59,6 +60,7 @@ namespace Thesis
         private void initializeListBox()
         {
             fillListBox(p_controller.getPatients(con));
+
         }
        
 
@@ -113,22 +115,13 @@ namespace Thesis
                 String lastname = name.Split(' ')[1];
 
                 lb_id.Content = p_controller.Patient_ids.ElementAt(lbox_patients.SelectedIndex);
-                /*Trace.WriteLine("NEW");
-                foreach (int it in p_controller.Patient_ids)
-                {
-                    Trace.WriteLine("selected index: " + lbox_patients.SelectedIndex + " - " + it);
-                }
-                lb_id.Content = a;
-                */
                 fillLabels(lbox_patients.SelectedIndex);
-
                 tb_replays.IsEnabled = true;
             }
             else
             {
                 tb_replays.IsEnabled = false;
             }
-            
         }
 
         /*
@@ -178,7 +171,6 @@ namespace Thesis
             }
 
             lbox_patients.IsEnabled = true;
-
         }
 
         /*
@@ -201,8 +193,6 @@ namespace Thesis
                 lbox_patients.IsEnabled = true;
             }
         }
-
-
         /*
          * ***DELETE BUTTON ONCLICK***
          */
@@ -210,8 +200,12 @@ namespace Thesis
         {
             if(lbox_patients.SelectedIndex > -1)
             {
-                p_controller.deletePatientById(p_controller.Patient_ids.ElementAt(lbox_patients.SelectedIndex),con);
+                int id = p_controller.Patient_ids.ElementAt(lbox_patients.SelectedIndex);
+
+                p_controller.deletePatientById(id,con);
                 p_controller.deleteIdAt(lbox_patients.SelectedIndex);
+
+                ftpClient.deleteDir(id + "_" + lbox_patients.SelectedItem);
 
                 initializeListBox();
                 clearAllTextBox();
@@ -237,7 +231,6 @@ namespace Thesis
                 writeInformation("The search box is empty!");
             }
         }
-
         /*
          * ***SEARCH TEXTBOX ONCHANGE***
          */
@@ -248,6 +241,13 @@ namespace Thesis
                 fillListBox(p_controller.getPatients(con));
             }
         }
+        /*
+         * ***PATIENT DOUBLE CLICK***
+         */
+        private void lbox_patients_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            tb_replays.IsSelected = true;
+        }
 
 
 //--------------------------------------------
@@ -255,6 +255,83 @@ namespace Thesis
 //--------------------------------------------
 
 
+        /*
+        * ***SELECT REPLAY***
+        */
+        private void dg_replays_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            e.Handled = true;
+            if (dg_replays.SelectedIndex != -1)
+            {
+                Replay temp = (Replay)dg_replays.SelectedItem;
+                Trace.WriteLine(temp.File_name); 
+                r_controller.selectedReplayId = dg_replays.SelectedIndex;
+            }
+        }
+        /*
+         * ***RECORD***
+         */
+        private void btn_record_Click(object sender, RoutedEventArgs e)
+        {
+            if (tb_filename.Text.Length > 0
+               && tb_details.Text.Length > 0)
+            {
+
+                Replay replay = new Replay();
+
+                replay.File_name = tb_filename.Text;
+                replay.Path = p_controller.Patient_ids.ElementAt(lbox_patients.SelectedIndex).ToString() +
+                            "_" +
+                            lbox_patients.SelectedItem.ToString() +
+                            "/" +
+                            tb_filename.Text +
+                            ".csv";
+                replay.Record_date = DateTime.Now.ToString();
+                replay.Detail = tb_details.Text;
+                replay.Patient_id = p_controller.Patient_ids.ElementAt(lbox_patients.SelectedIndex);
+
+                r_controller.addReplay(replay, con);
+
+                ftpClient.upload(replay.Path, @"E:\test.csv");
+                fillReplays();
+                clearAllTextBox();
+
+            }
+            else
+            {
+                writeInformation("A data field is empty!");
+            }
+            //Process.Start(@"E:\sensors_lm_k2_02\sensors\bin\Debug\sensors.exe");
+            //server.StartServer("asd.csv");
+
+        }
+        /*
+         * ***FILL REPLAY DATAGRID***
+         */
+        private void fillReplays()
+        {
+            int p_id = Int32.Parse(lb_id.Content.ToString());
+
+            List<Replay> replays = r_controller.getPatientReplays(p_id, con);
+            List<string> files = ftpClient.listFilesFromDirectory(p_id + "_" + lbox_patients.SelectedItem.ToString());
+
+            dg_replays.ItemsSource = GetRelevantReplays(replays, files);
+        }
+
+        private void btn_playback_Click(object sender, RoutedEventArgs e)
+        {
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            saveFileDialog.InitialDirectory = @"C:\";
+            saveFileDialog.Title = "Save File";
+            saveFileDialog.CheckPathExists = true;
+            saveFileDialog.DefaultExt = "txt";
+            saveFileDialog.Filter = "Text files (*.txt)|*.txt|CSV files (*.*)|*.csv";
+            saveFileDialog.FilterIndex = 1;
+            saveFileDialog.RestoreDirectory = true;
+
+            saveFileDialog.ShowDialog();
+            Trace.WriteLine(saveFileDialog.FileName);
+        }
 
 
 
@@ -282,8 +359,12 @@ namespace Thesis
             tb_address.Text = "";
             tb_tel.Text = "";
             dp_birth.Text = "";
+            tb_filename.Text = "";
+            tb_details.Text = "";
         }
-
+        /*
+         * ***TAB SELECTION***
+         */
         private void tabSelected(object sender, SelectionChangedEventArgs e)
         {
             if(tabControl.SelectedIndex == 1 && lbox_patients.SelectedIndex > -1)
@@ -292,61 +373,51 @@ namespace Thesis
                 lb_patient_name.Content = lbox_patients.SelectedItem;
             }
         }
-        private void fillReplays()
+        /*
+         * ***GET RELEVANT REPLAYS DATA***
+         */
+        private List<Replay> GetRelevantReplays(List<Replay> replays, List<string> files)
         {
-            int p_id = Int32.Parse(lb_id.Content.ToString());
-            List<Replay> replays = r_controller.getPatientReplays(p_id,con);
+            List<Replay> fordelete = new List<Replay>();
+            List<Replay> temp1 = replays;
+            
 
-            dg_replays.ItemsSource = replays;
-        }
-
-        private void dg_replays_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            Trace.WriteLine(dg_replays.SelectedIndex);
-           
-        }
-    
-        private void btn_record_Click(object sender, RoutedEventArgs e)
-        {
-            if(lb_filename.Content.ToString().Length > 0
-                || lb_details.Content.ToString().Length > 0)
+            foreach (Replay it in temp1)
             {
+                bool gotIt = false;
+                foreach (string it2 in files)
+                {
+                    if (it.File_name == it2)
+                    {
+                        gotIt = true;
+                    }
+                }
+                if (!gotIt)
+                {
+                    fordelete.Add(it);
+                }
+            }
+            foreach (Replay it in fordelete)
+            {
+                temp1.Remove(it);
+            }
 
-                Replay replay = new Replay();
+            return temp1;
+        }
 
-                replay.File_name = tb_filename.Text;
-                replay.Path = p_controller.Patient_ids.ElementAt(lbox_patients.SelectedIndex).ToString() +
-                            "_" +
-                            lbox_patients.SelectedItem.ToString() + 
-                            "/" +
-                            tb_filename.Text + 
-                            ".txt";
-                replay.Record_date = DateTime.Now.ToString();
-                replay.Detail = tb_details.Text;
-                replay.Patient_id = p_controller.Patient_ids.ElementAt(lbox_patients.SelectedIndex);
-
-                r_controller.addReplay(replay, con);
-
-                ftpClient.upload(replay.Path, @"E:\test2.txt");
+        private void deleteReplay(object sender, RoutedEventArgs e)
+        {
+            if(dg_replays.SelectedIndex > -1)
+            {
+                Replay temp = (Replay)dg_replays.Items[r_controller.selectedReplayId];
+                r_controller.deleteReplayById(temp.Id,temp.Path,ftpClient,con);
                 fillReplays();
-
             }
             else
             {
-                writeInformation("A data field is empty!");
+                writeInformation("Select a replay first!");
             }
-            //Process.Start(@"E:\sensors_lm_k2_02\sensors\bin\Debug\sensors.exe");
-            //server.StartServer("asd.csv");
-
-            string file =  "testName" + 
-                                ".txt";
-            string dir =    p_controller.Patient_ids.ElementAt(lbox_patients.SelectedIndex).ToString() +
-                            "_" +
-                            lbox_patients.SelectedItem.ToString();
-
-            //ftpClient.createDir(dir);
-            ftpClient.upload(dir + "/" + file , @"E:\test2.txt");
-           
+            
         }
     }
 }

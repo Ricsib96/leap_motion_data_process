@@ -10,9 +10,10 @@ namespace Thesis
     {
 
         List<int> ids;
+        public int selectedReplayId { get; set; }
         public List<int> Ids { get => ids; set => ids = value; }
 
-        public ReplayController() { Ids = new List<int>(); }
+        public ReplayController() { Ids = new List<int>(); selectedReplayId = -1; }
 
         public List<Replay> getPatientReplays(int id, DBConnect con)
         {
@@ -21,6 +22,11 @@ namespace Thesis
         public void addReplay(Replay replay, DBConnect con)
         {
             con.addReplay(replay);
+        }
+        public void deleteReplayById(int id, string path, FTPClient ftp ,DBConnect con)
+        {
+            con.deleteReplayById(id);
+            ftp.deleteFile(path);
         }
     }
 }

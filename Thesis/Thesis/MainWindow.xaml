@@ -12,7 +12,7 @@
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <TabControl x:Name="tabControl" Height="475" Width="auto" Grid.Row="0" BorderBrush="#FFFBFBFB" Background="#FF252526" RenderTransformOrigin="0.497,0.494" SelectionChanged="tabSelected" VerticalAlignment="Top">
-            <TabItem x:Name="tb_main" Header="Patients" Height="23" VerticalAlignment="Top" FontFamily="Microsoft YaHei UI Light" FontSize="16">
+            <TabItem x:Name="tb_main" Header="Patients" Height="23" VerticalAlignment="Top" FontFamily="Microsoft YaHei UI Light" FontSize="16" IsSelected="True">
                 <Grid Margin="0,0,0,-2">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition/>
@@ -33,7 +33,7 @@
                     </Label>
 
 
-                    <ListBox x:Name="lbox_patients" Height="352" Margin="10,30,437,0" VerticalAlignment="Top" Background="White" BorderBrush="{x:Null}" Foreground="Black" SelectionChanged="patientSelect" FontFamily="Microsoft YaHei UI Light" FontSize="16" RenderTransformOrigin="0.5,0.5">
+                    <ListBox x:Name="lbox_patients" Height="352" Margin="10,30,437,0" VerticalAlignment="Top" Background="White" BorderBrush="{x:Null}" Foreground="Black" SelectionChanged="patientSelect" FontFamily="Microsoft YaHei UI Light" FontSize="16" RenderTransformOrigin="0.5,0.5" MouseDoubleClick="lbox_patients_MouseDoubleClick">
                         <ListBox.RenderTransform>
                             <TransformGroup>
                                 <ScaleTransform/>
@@ -73,25 +73,19 @@
                         <RowDefinition Height="301*"/>
                         <RowDefinition Height="9*"/>
                     </Grid.RowDefinitions>
-                    <Label x:Name="lb_patient_name" Content="Patient" HorizontalContentAlignment="Center" Margin="174,9,173,383" FontSize="22" Foreground="#FFBBBBBB" RenderTransformOrigin="0,0.5">
+                    <Label x:Name="lb_patient_name" Content="Patient" HorizontalContentAlignment="Center" Margin="151,11,150,369" FontSize="22" Foreground="#FFBBBBBB" RenderTransformOrigin="0,0.5">
                         <Label.LayoutTransform>
                             <TransformGroup>
-                                <ScaleTransform/>
-                                <SkewTransform/>
-                                <RotateTransform/>
                                 <TranslateTransform X="2"/>
                             </TransformGroup>
                         </Label.LayoutTransform>
                         <Label.RenderTransform>
                             <TransformGroup>
-                                <ScaleTransform/>
-                                <SkewTransform AngleY="-0.156"/>
-                                <RotateTransform/>
                                 <TranslateTransform Y="-0.664"/>
                             </TransformGroup>
                         </Label.RenderTransform>
                     </Label>
-                    <DataGrid x:Name="dg_replays" HorizontalAlignment="Left" AutoGenerateColumns="False" Margin="10,85,0,31" Width="432" Background="#FFD8D7D7" BorderBrush="{x:Null}" GridLinesVisibility="Horizontal" HorizontalGridLinesBrush="#FF6C6C6C" FontSize="16" SelectionChanged="dg_replays_SelectionChanged" IsReadOnly="True" IsSynchronizedWithCurrentItem="False" AlternationCount="2" AlternatingRowBackground="#FFC3C3C3" RowBackground="#FFDCDADA" IsTextSearchEnabled="True" SelectionMode="Single" IsHitTestVisible="True" FontWeight="Bold" RowDetailsVisibilityMode="Visible">
+                    <DataGrid x:Name="dg_replays" HorizontalAlignment="Left" AutoGenerateColumns="False" Margin="10,85,0,31" Width="432" Background="#FFD8D7D7" BorderBrush="{x:Null}" GridLinesVisibility="Horizontal" HorizontalGridLinesBrush="#FF6C6C6C" FontSize="16" SelectionChanged="dg_replays_SelectionChanged" IsReadOnly="True" IsSynchronizedWithCurrentItem="False" AlternationCount="2" AlternatingRowBackground="#FFC3C3C3" RowBackground="#FFDCDADA" IsTextSearchEnabled="True" SelectionMode="Single" IsHitTestVisible="True" FontWeight="Bold" EnableRowVirtualization="False">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Name" Binding="{Binding File_name}" />
                             <DataGridTextColumn Header="Recorded at" Binding="{Binding Record_date}" />
@@ -120,12 +114,14 @@
                             </TransformGroup>
                         </Label.RenderTransform>
                     </Label>
-                    <Button x:Name="btn_record" Content="Record" Margin="527,321,79,0" VerticalAlignment="Top" Height="32" Click="btn_record_Click"/>
-                    <Button x:Name="btn_playback" Content="Playback" Margin="527,367,79,0" VerticalAlignment="Top" Height="32"/>
+                    <Button x:Name="btn_record" Content="Record" Margin="460,321,146,0" VerticalAlignment="Top" Height="32" Click="btn_record_Click"/>
+                    <Button x:Name="btn_playback" Content="Playback" Margin="596,321,10,0" VerticalAlignment="Top" Height="32" Click="btn_playback_Click"/>
                     <TextBox x:Name="tb_filename" Height="32" Margin="460,120,10,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
                     <Label x:Name="lb_filename" Content="File name" Margin="460,85,115,0" VerticalAlignment="Top" Foreground="#FFBBBBBB" FontSize="20" RenderTransformOrigin="0.425,2.486"/>
                     <Label x:Name="lb_details" Content="Details" Margin="460,157,115,0" VerticalAlignment="Top" Foreground="#FFBBBBBB" FontSize="20" RenderTransformOrigin="0.425,2.486"/>
                     <TextBox x:Name="tb_details" Height="115" Margin="460,192,10,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
+                    <Button x:Name="btn_playback_Copy" Content="Playback" Margin="596,321,10,0" VerticalAlignment="Top" Height="32" Click="btn_playback_Click"/>
+                    <Button x:Name="btn_delete_replay" Content="Delete" Margin="460,358,146,0" VerticalAlignment="Top" Height="32" Click="deleteReplay"/>
                 </Grid>
             </TabItem>
         </TabControl>

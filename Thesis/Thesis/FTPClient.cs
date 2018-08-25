@@ -87,6 +87,115 @@ namespace Thesis
             }
             catch (Exception ex) { Console.WriteLine(ex.ToString()); }
         }
+        public List<string> listFilesFromDirectory(string dir)
+        {
+            List<string> files = new List<string>();
+
+            try
+            {
+                FtpWebRequest ftpRequest = (FtpWebRequest)FtpWebRequest.Create(Host + "/" + dir);
+                ftpRequest.Credentials = new NetworkCredential(UserName, Password);
+                ftpRequest.UseBinary = true;
+                ftpRequest.UsePassive = true;
+                ftpRequest.KeepAlive = true;
+                ftpRequest.Method = WebRequestMethods.Ftp.ListDirectory;
+
+                FtpWebResponse response = (FtpWebResponse)ftpRequest.GetResponse();
+                Stream responseStream = response.GetResponseStream();
+                StreamReader reader = new StreamReader(responseStream);
+
+                while (!reader.EndOfStream)
+                {
+                    string file = reader.ReadLine().Split('/')[1].Split('.')[0];
+                    files.Add(file);
+                }
+
+                reader.Close();
+                responseStream.Close(); //redundant
+                response.Close();
+
+            }
+            catch (Exception ex) { Console.WriteLine(ex.ToString()); }
+
+            return files;
+        }
+        public List<string> listFilesWithExtensionsFromDirectory(string dir)
+        {
+            List<string> files = new List<string>();
+
+            try
+            {
+                FtpWebRequest ftpRequest = (FtpWebRequest)FtpWebRequest.Create(Host + "/" + dir);
+                ftpRequest.Credentials = new NetworkCredential(UserName, Password);
+                ftpRequest.UseBinary = true;
+                ftpRequest.UsePassive = true;
+                ftpRequest.KeepAlive = true;
+                ftpRequest.Method = WebRequestMethods.Ftp.ListDirectory;
+
+                FtpWebResponse response = (FtpWebResponse)ftpRequest.GetResponse();
+                Stream responseStream = response.GetResponseStream();
+                StreamReader reader = new StreamReader(responseStream);
+
+                while (!reader.EndOfStream)
+                {
+                    string file = reader.ReadLine();
+                    files.Add(file);
+                }
+
+                reader.Close();
+                responseStream.Close(); //redundant
+                response.Close();
+
+            }
+            catch (Exception ex) { Console.WriteLine(ex.ToString()); }
+
+            return files;
+        }
+        public void deleteFile(string path)
+        {
+            try
+            {
+                FtpWebRequest ftpRequest = (FtpWebRequest)FtpWebRequest.Create(Host + "/" + path);
+                ftpRequest.Credentials = new NetworkCredential(UserName, Password);
+                ftpRequest.UseBinary = true;
+                ftpRequest.UsePassive = true;
+                ftpRequest.KeepAlive = true;
+                ftpRequest.Method = WebRequestMethods.Ftp.DeleteFile;
+
+                FtpWebResponse response = (FtpWebResponse)ftpRequest.GetResponse();
+                response.Close();
+
+            }
+            catch (Exception ex) { Console.WriteLine(ex.ToString()); }
+        }
+
+        public void deleteDir(string dir)
+        {
+            List<string> files = listFilesWithExtensionsFromDirectory(dir);
+
+            foreach(string it in files)
+            {
+                deleteFile(it);
+                Trace.WriteLine("Delete file: " + it);
+            }
+            Trace.WriteLine("Delete dir: " + dir);
+
+
+            try
+            {
+                FtpWebRequest ftpRequest = (FtpWebRequest)FtpWebRequest.Create(Host + "/" + dir);
+                ftpRequest.Credentials = new NetworkCredential(UserName, Password);
+                ftpRequest.UseBinary = true;
+                ftpRequest.UsePassive = true;
+                ftpRequest.KeepAlive = true;
+                ftpRequest.Method = WebRequestMethods.Ftp.RemoveDirectory;
+
+                FtpWebResponse response = (FtpWebResponse)ftpRequest.GetResponse();
+                response.Close();
+
+            }
+            catch (Exception ex) { Console.WriteLine(ex.ToString()); }
+        }
 
     }
 }

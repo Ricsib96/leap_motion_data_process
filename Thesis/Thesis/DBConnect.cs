@@ -371,6 +371,22 @@ namespace Thesis
 
         }
 
+        public void deleteReplayById(int id)
+        {
+            string query = "DELETE FROM " + TABLE_REPLAYS +
+                            " WHERE " + COL_ID + " = '" + id + "'";
+
+            OpenConnection();
+            if (this.OpenConnection())
+            {
+                MySqlCommand cmd = new MySqlCommand(query, connection);
+                Trace.Write(query);
+                cmd.ExecuteNonQuery();
+                Trace.Write(query);
+                CloseConnection();
+            }
+        }
+
         //Count statement
         /*    public int Count()
             {
