@@ -19,11 +19,11 @@
                         <ColumnDefinition Width="0*"/>
                     </Grid.ColumnDefinitions>
 
-                    <TextBox x:Name="tb_fname" HorizontalAlignment="Left" Height="35" Margin="396,33,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="285" Background="White" FontSize="16"/>
-                    <TextBox x:Name="tb_lname" HorizontalAlignment="Left" Height="38" Margin="396,73,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="285" Background="White" FontSize="16"/>
-                    <TextBox x:Name="tb_address" HorizontalAlignment="Left" Height="37" Margin="396,116,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="285" Background="White" FontSize="16"/>
-                    <TextBox x:Name="tb_tel" HorizontalAlignment="Left" Height="36" Margin="396,159,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="285" Background="White" BorderBrush="#FFABADB3" FontSize="16"/>
-                    <DatePicker x:Name="dp_birth" HorizontalAlignment="Left" Margin="396,201,0,0" VerticalAlignment="Top" SelectedDateFormat="Short" BorderBrush="{x:Null}" Background="White" FirstDayOfWeek="Monday" Height="31" Width="285" Foreground="Black" FontSize="16" Text="Date"/>
+                    <TextBox x:Name="tb_fname" Height="35" Margin="396,33,14,0" TextWrapping="Wrap" VerticalAlignment="Top" Background="White" FontSize="16"/>
+                    <TextBox x:Name="tb_lname" Height="38" Margin="396,73,14,0" TextWrapping="Wrap" VerticalAlignment="Top" Background="White" FontSize="16"/>
+                    <TextBox x:Name="tb_address" Height="37" Margin="396,116,14,0" TextWrapping="Wrap" VerticalAlignment="Top" Background="White" FontSize="16"/>
+                    <TextBox x:Name="tb_tel" Height="36" Margin="396,159,14,0" TextWrapping="Wrap" VerticalAlignment="Top" Background="White" BorderBrush="#FFABADB3" FontSize="16"/>
+                    <DatePicker x:Name="dp_birth" Margin="396,201,14,0" VerticalAlignment="Top" SelectedDateFormat="Short" BorderBrush="{x:Null}" Background="White" FirstDayOfWeek="Monday" Height="31" Foreground="Black" FontSize="16" Text="Date"/>
                     <Label x:Name="lb_id" Content="" HorizontalAlignment="Left" Margin="227,187,0,0" VerticalAlignment="Top" Visibility="Hidden" Height="26" Width="186" RenderTransformOrigin="0.5,0.5">
                         <Label.RenderTransform>
                             <TransformGroup>
@@ -33,7 +33,7 @@
                     </Label>
 
 
-                    <ListBox x:Name="lbox_patients" Height="352" Margin="10,30,437,0" VerticalAlignment="Top" Background="White" BorderBrush="{x:Null}" Foreground="Black" SelectionChanged="patientSelect" FontFamily="Microsoft YaHei UI Light" FontSize="16" RenderTransformOrigin="0.5,0.5" MouseDoubleClick="lbox_patients_MouseDoubleClick">
+                    <ListBox x:Name="lbox_patients" Height="352" Margin="0,30,437,0" VerticalAlignment="Top" Background="White" BorderBrush="{x:Null}" Foreground="Black" SelectionChanged="patientSelect" FontFamily="Microsoft YaHei UI Light" FontSize="16" RenderTransformOrigin="0.5,0.5" MouseDoubleClick="lbox_patients_MouseDoubleClick" HorizontalAlignment="Right" Width="248">
                         <ListBox.RenderTransform>
                             <TransformGroup>
                                 <ScaleTransform/>
@@ -43,22 +43,22 @@
                             </TransformGroup>
                         </ListBox.RenderTransform>
                     </ListBox>
-                    <Label x:Name="lb_fname" Content="First Name" HorizontalAlignment="Left" Margin="275,33,0,0" VerticalAlignment="Top" Width="89" Height="35" Foreground="#FFBBBBBB" FontFamily="Microsoft YaHei UI Light" FontSize="16"/>
-                    <Label x:Name="lb_lname" Content="Last Name" HorizontalAlignment="Left" Margin="275,73,0,0" VerticalAlignment="Top" Width="90" Height="38" Foreground="#FFBBBBBB" FontFamily="Microsoft YaHei UI Light" FontSize="16"/>
-                    <Label x:Name="lb_address" Content="Address" HorizontalAlignment="Left" Margin="275,117,0,0" VerticalAlignment="Top" Width="73" Height="36" Foreground="#FFBBBBBB" FontFamily="Microsoft YaHei UI Light" FontSize="16"/>
+                    <Label x:Name="lb_fname" Content="First Name" Margin="275,33,331,0" VerticalAlignment="Top" Height="35" Foreground="#FFBBBBBB" FontFamily="Microsoft YaHei UI Light" FontSize="16"/>
+                    <Label x:Name="lb_lname" Content="Last Name" Margin="275,73,330,0" VerticalAlignment="Top" Height="38" Foreground="#FFBBBBBB" FontFamily="Microsoft YaHei UI Light" FontSize="16"/>
+                    <Label x:Name="lb_address" Content="Address" Margin="275,117,347,0" VerticalAlignment="Top" Height="36" Foreground="#FFBBBBBB" FontFamily="Microsoft YaHei UI Light" FontSize="16"/>
                     <Label x:Name="l_patients" Content="Patients" HorizontalAlignment="Left" Margin="81,0,0,0" VerticalAlignment="Top" Width="78" FontSize="16" Height="30" RenderTransformOrigin="0.5,0.5" Background="{x:Null}" Foreground="#FFBBBBBB" FontFamily="Microsoft YaHei UI Light"/>
-                    <Label x:Name="lb_address_Copy1" Content="Telephone" HorizontalAlignment="Left" Margin="275,159,0,0" VerticalAlignment="Top" Width="94" Height="35" Foreground="#FFBBBBBB" FontFamily="Microsoft YaHei UI Light" FontSize="16"/>
-                    <Button x:Name="btn_modify" Content="Modify" HorizontalAlignment="Left" Margin="593,236,0,0" VerticalAlignment="Top" Width="88" Click="modifyPatient" Height="31" FontFamily="Microsoft YaHei UI Light" FontSize="16"/>
-                    <CheckBox x:Name="cbox_new" Content="New patient" HorizontalAlignment="Left" Margin="281,243,0,0" VerticalAlignment="Top" Click="newPatientCheck" Height="19" Width="115" Foreground="#FFBBBBBB" FontFamily="Microsoft YaHei UI Light" FontSize="16" FontWeight="Bold"/>
+                    <Label x:Name="lb_address_Copy1" Content="Telephone" Margin="275,159,326,0" VerticalAlignment="Top" Height="35" Foreground="#FFBBBBBB" FontFamily="Microsoft YaHei UI Light" FontSize="16"/>
+                    <Button x:Name="btn_modify" Content="Modify" Margin="593,236,14,0" VerticalAlignment="Top" Click="modifyPatient" Height="31" FontFamily="Microsoft YaHei UI Light" FontSize="16"/>
+                    <CheckBox x:Name="cbox_new" Content="New patient" Margin="281,243,299,0" VerticalAlignment="Top" Click="newPatientCheck" Height="19" Foreground="#FFBBBBBB" FontFamily="Microsoft YaHei UI Light" FontSize="16" FontWeight="Bold"/>
                     <ComboBox x:Name="cb_sex" HorizontalAlignment="Left" Margin="396,237,0,0" VerticalAlignment="Top" Width="192" SelectedIndex="0" Height="31" FontSize="16" Visibility="Hidden">
                         <System:String>men</System:String>
                         <System:String>women</System:String>
                     </ComboBox>
-                    <Button x:Name="btn_delete" Content="Delete" HorizontalAlignment="Left" Margin="593,272,0,0" VerticalAlignment="Top" Width="88" Click="deletePatient" Height="30" FontFamily="Microsoft YaHei UI Light" FontSize="16"/>
+                    <Button x:Name="btn_delete" Content="Delete" Margin="593,272,14,0" VerticalAlignment="Top" Click="deletePatient" Height="30" FontFamily="Microsoft YaHei UI Light" FontSize="16"/>
                     <TextBox x:Name="tb_search" HorizontalAlignment="Left" Height="33" Margin="10,387,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="170" BorderBrush="{x:Null}" Foreground="Black" TextChanged="searchTextChanged" Background="White" FontSize="16"/>
-                    <Button x:Name="btn_search" Content="Search" HorizontalAlignment="Left" Margin="185,387,0,0" VerticalAlignment="Top" Width="62" Height="33" Click="searchPatient" FontFamily="Microsoft YaHei UI Light" FontSize="16"/>
-                    <Label x:Name="lb_date" Content="Date of Birth" HorizontalAlignment="Left" Margin="275,199,0,0" VerticalAlignment="Top" Width="105" Height="28" Foreground="#FFBBBBBB" FontFamily="Microsoft YaHei UI Light" FontSize="16"/>
-                    <Image x:Name="image" Height="113" Margin="281,302,95,0" VerticalAlignment="Top" Source="/img/leap.png"/>
+                    <Button x:Name="btn_search" Content="Search" HorizontalAlignment="Left" Margin="185,387,0,25" Width="62" Click="searchPatient" FontFamily="Microsoft YaHei UI Light" FontSize="16"/>
+                    <Label x:Name="lb_date" Content="Date of Birth" Margin="275,199,315,0" VerticalAlignment="Top" Height="28" Foreground="#FFBBBBBB" FontFamily="Microsoft YaHei UI Light" FontSize="16"/>
+                    <Image x:Name="image" Margin="281,302,95,30" Source="/img/leap.png"/>
                 </Grid>
             </TabItem>
 
@@ -85,7 +85,7 @@
                             </TransformGroup>
                         </Label.RenderTransform>
                     </Label>
-                    <DataGrid x:Name="dg_replays" HorizontalAlignment="Left" AutoGenerateColumns="False" Margin="10,85,0,31" Width="432" Background="#FFD8D7D7" BorderBrush="{x:Null}" GridLinesVisibility="Horizontal" HorizontalGridLinesBrush="#FF6C6C6C" FontSize="16" SelectionChanged="dg_replays_SelectionChanged" IsReadOnly="True" IsSynchronizedWithCurrentItem="False" AlternationCount="2" AlternatingRowBackground="#FFC3C3C3" RowBackground="#FFDCDADA" IsTextSearchEnabled="True" SelectionMode="Single" IsHitTestVisible="True" FontWeight="Bold" EnableRowVirtualization="False">
+                    <DataGrid x:Name="dg_replays" HorizontalAlignment="Left" AutoGenerateColumns="False" Margin="10,85,0,31" Width="432" Background="#FFD8D7D7" BorderBrush="{x:Null}" GridLinesVisibility="Horizontal" HorizontalGridLinesBrush="#FF424242" FontSize="16" SelectionChanged="dg_replays_SelectionChanged" IsReadOnly="True" IsSynchronizedWithCurrentItem="False" AlternationCount="2" AlternatingRowBackground="#FF8D8D8D" RowBackground="#FFDCDADA" IsTextSearchEnabled="True" SelectionMode="Single" IsHitTestVisible="True" FontWeight="Bold" EnableRowVirtualization="False" MinColumnWidth="30" ColumnWidth="*">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Name" Binding="{Binding File_name}" />
                             <DataGridTextColumn Header="Recorded at" Binding="{Binding Record_date}" />
@@ -120,7 +120,6 @@
                     <Label x:Name="lb_filename" Content="File name" Margin="460,85,115,0" VerticalAlignment="Top" Foreground="#FFBBBBBB" FontSize="20" RenderTransformOrigin="0.425,2.486"/>
                     <Label x:Name="lb_details" Content="Details" Margin="460,157,115,0" VerticalAlignment="Top" Foreground="#FFBBBBBB" FontSize="20" RenderTransformOrigin="0.425,2.486"/>
                     <TextBox x:Name="tb_details" Height="115" Margin="460,192,10,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
-                    <Button x:Name="btn_playback_Copy" Content="Playback" Margin="596,321,10,0" VerticalAlignment="Top" Height="32" Click="btn_playback_Click"/>
                     <Button x:Name="btn_delete_replay" Content="Delete" Margin="460,358,146,0" VerticalAlignment="Top" Height="32" Click="deleteReplay"/>
                 </Grid>
             </TabItem>
