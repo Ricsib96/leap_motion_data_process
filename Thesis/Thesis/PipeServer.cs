@@ -31,17 +31,21 @@ namespace Thesis
 
                     isWaiting = true;
 
-                    /*while (isWaiting)
+                 /*   while (isWaiting)
                     {
                         string line = reader.ReadLine();
-                        if (line != null || line.Length > 0)
+                        if (line != null)
                         {
                             Trace.WriteLine(line);
                             isWaiting = false;
                         }
-                    } */
-
-                    //server.Close();
+                        else
+                        {
+                            //Trace.WriteLine("No data!");
+                        }
+                    } 
+                */
+                    server.Close();
 
                 });
             }
@@ -51,6 +55,39 @@ namespace Thesis
             }
         }
 
+        public string StartServerAndGetString(string file_name)
+        {
+            try
+            {
+                Task.Factory.StartNew(() =>
+                {
+                    var server = new NamedPipeServerStream("Pipe");
+                    server.WaitForConnection();
+                    StreamReader reader = new StreamReader(server);
+                    StreamWriter writer = new StreamWriter(server);
+
+                    writer.WriteLine(file_name);
+                    writer.Flush();
+
+                    while (true)
+                    {
+                        string line = reader.ReadLine();
+                        if (line != null)
+                        {
+                            Trace.WriteLine(line);
+                            server.Close();
+                            return line;
+                        }
+                    }
+                    
+                });
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+            }
+            return "NOPE";
+        }
     }
 
 }

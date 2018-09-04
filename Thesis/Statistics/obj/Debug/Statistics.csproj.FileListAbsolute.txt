@@ -1,0 +1,8 @@
+E:\Dokumentumok\PE\7.félév\Szakdolgozat\leap_motion_data_process\Thesis\Statistics\bin\Debug\Statistics.exe.config
+E:\Dokumentumok\PE\7.félév\Szakdolgozat\leap_motion_data_process\Thesis\Statistics\bin\Debug\Statistics.exe
+E:\Dokumentumok\PE\7.félév\Szakdolgozat\leap_motion_data_process\Thesis\Statistics\bin\Debug\Statistics.pdb
+E:\Dokumentumok\PE\7.félév\Szakdolgozat\leap_motion_data_process\Thesis\Statistics\bin\Debug\FileHelpers.dll
+E:\Dokumentumok\PE\7.félév\Szakdolgozat\leap_motion_data_process\Thesis\Statistics\obj\Debug\Statistics.csprojResolveAssemblyReference.cache
+E:\Dokumentumok\PE\7.félév\Szakdolgozat\leap_motion_data_process\Thesis\Statistics\obj\Debug\Statistics.csproj.CoreCompileInputs.cache
+E:\Dokumentumok\PE\7.félév\Szakdolgozat\leap_motion_data_process\Thesis\Statistics\obj\Debug\Statistics.exe
+E:\Dokumentumok\PE\7.félév\Szakdolgozat\leap_motion_data_process\Thesis\Statistics\obj\Debug\Statistics.pdb
