@@ -13,32 +13,38 @@ public class Palm : MonoBehaviour {
     float c = 0;
     float nextFrame = 1;
     Vector3 pos1,center1,center2,pos2;
+    bool isPaused;
 
 
     // Use this for initialization
     void Start () {
         p_center = GameObject.Find("p_center");
-	}
+        isPaused = false;
+    }
 	
 	// Update is called once per frame
 	void Update () {
 
-        pos1 = new Vector3((float)rf_mpArray.ElementAt(i).getCoordinate().X(), (float)rf_mpArray.ElementAt(i).getCoordinate().Y(), (float)rf_mpArray.ElementAt(i).getCoordinate().Z());
-        pos2 = new Vector3((float)rf_mnArray.ElementAt(i).getCoordinate().X(), (float)rf_mnArray.ElementAt(i).getCoordinate().Y(), (float)rf_mnArray.ElementAt(i).getCoordinate().Z());
-        center1 = Vector3.Lerp(pos1, pos2, 0.5f);
-
-        pos1 = new Vector3((float)mf_mpArray.ElementAt(i).getCoordinate().X(), (float)mf_mpArray.ElementAt(i).getCoordinate().Y(), (float)mf_mpArray.ElementAt(i).getCoordinate().Z());
-        pos2 = new Vector3((float)mf_mnArray.ElementAt(i).getCoordinate().X(), (float)mf_mnArray.ElementAt(i).getCoordinate().Y(), (float)mf_mnArray.ElementAt(i).getCoordinate().Z());
-        center2 = Vector3.Lerp(pos1, pos2, 0.5f);
-
-        p_center.transform.position = Vector3.Lerp(center1, center2, 0.5f);
-
-        if (c % nextFrame == 0)
+        if(!isPaused)
         {
-            if (i < rf_mpArray.Count - 1)
-                i++;
+            pos1 = new Vector3((float)rf_mpArray.ElementAt(i).getCoordinate().X(), (float)rf_mpArray.ElementAt(i).getCoordinate().Y(), (float)rf_mpArray.ElementAt(i).getCoordinate().Z());
+            pos2 = new Vector3((float)rf_mnArray.ElementAt(i).getCoordinate().X(), (float)rf_mnArray.ElementAt(i).getCoordinate().Y(), (float)rf_mnArray.ElementAt(i).getCoordinate().Z());
+            center1 = Vector3.Lerp(pos1, pos2, 0.5f);
+
+            pos1 = new Vector3((float)mf_mpArray.ElementAt(i).getCoordinate().X(), (float)mf_mpArray.ElementAt(i).getCoordinate().Y(), (float)mf_mpArray.ElementAt(i).getCoordinate().Z());
+            pos2 = new Vector3((float)mf_mnArray.ElementAt(i).getCoordinate().X(), (float)mf_mnArray.ElementAt(i).getCoordinate().Y(), (float)mf_mnArray.ElementAt(i).getCoordinate().Z());
+            center2 = Vector3.Lerp(pos1, pos2, 0.5f);
+
+            p_center.transform.position = Vector3.Lerp(center1, center2, 0.5f);
+
+            if (c % nextFrame == 0)
+            {
+                if (i < rf_mpArray.Count - 1)
+                    i++;
+            }
+            c++;
         }
-        c++;
+        
     }
     public void Set(List<ReadFile.Point> rf_mp, List<ReadFile.Point> rf_mn, List<ReadFile.Point> mf_mp, List<ReadFile.Point> mf_mn)
     {
@@ -51,4 +57,19 @@ public class Palm : MonoBehaviour {
     {
         nextFrame = nf;
     }
+    public void Pause()
+    {
+        isPaused = true;
+    }
+    public void Continue()
+    {
+        isPaused = false;
+    }
+    public void Stop()
+    {
+        Pause();
+        i = 0;
+        c = 0;
+    }
+
 }

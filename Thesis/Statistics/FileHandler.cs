@@ -75,10 +75,10 @@ namespace Statistics
                     Fingers.Add(ring);
                     Fingers.Add(little);
 
-                    if(count%2 == 0)
-                    {
+                 //   if(count%2 == 0)
+                 //   {
                         hand.Add(Fingers);
-                    }                   
+                //    }                   
                     count++;
                 }
             }

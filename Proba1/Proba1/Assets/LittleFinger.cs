@@ -16,10 +16,16 @@ public class LittleFinger : MonoBehaviour {
     GameObject mpCurrent,mnCurrent,ppnCurrent,ipnCurrent,dpnCurrent;
     Vector3 pos;
     LineRenderer line;
+    bool sentStop;
+    public PipeClient client { get; set; }
+    bool isPaused;
 
 
     // Use this for initialization
     void Start () {
+
+        sentStop = false;
+        isPaused = false;
 
         mpCurrent = GameObject.Find("mp_lf");
         mnCurrent = GameObject.Find("mn_lf");
@@ -33,37 +39,37 @@ public class LittleFinger : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-        pos = new Vector3((float)mpArray.ElementAt(i).getCoordinate().X(), (float)mpArray.ElementAt(i).getCoordinate().Y(), (float)mpArray.ElementAt(i).getCoordinate().Z());
-        mpCurrent.transform.position = pos;
-        pos = new Vector3((float)mnArray.ElementAt(i).getCoordinate().X(), (float)mnArray.ElementAt(i).getCoordinate().Y(), (float)mnArray.ElementAt(i).getCoordinate().Z());
-        mnCurrent.transform.position = pos;
-        pos = new Vector3((float)ppnArray.ElementAt(i).getCoordinate().X(), (float)ppnArray.ElementAt(i).getCoordinate().Y(), (float)ppnArray.ElementAt(i).getCoordinate().Z());
-        ppnCurrent.transform.position = pos;
-        pos = new Vector3((float)ipnArray.ElementAt(i).getCoordinate().X(), (float)ipnArray.ElementAt(i).getCoordinate().Y(), (float)ipnArray.ElementAt(i).getCoordinate().Z());
-        ipnCurrent.transform.position = pos;
-        pos = new Vector3((float)dpnArray.ElementAt(i).getCoordinate().X(), (float)dpnArray.ElementAt(i).getCoordinate().Y(), (float)dpnArray.ElementAt(i).getCoordinate().Z());
-        dpnCurrent.transform.position = pos;
-
-        line.material.color = Color.black;
-        line.SetPosition(0, mpCurrent.transform.position);
-        line.SetPosition(1, mnCurrent.transform.position);
-        line.material.color = Color.magenta;
-        line.SetPosition(2, ppnCurrent.transform.position);
-        line.SetPosition(3, ipnCurrent.transform.position);
-        line.SetPosition(4, dpnCurrent.transform.position);
-
-        if (c % nextFrame == 0)
+        if (!isPaused)
         {
-            if (i < mpArray.Count - 1)
-                i++;
-            else
-                Application.Quit();
-        }
-        c++;
-        
-        
-        
-	}
+            pos = new Vector3((float)mpArray.ElementAt(i).getCoordinate().X(), (float)mpArray.ElementAt(i).getCoordinate().Y(), (float)mpArray.ElementAt(i).getCoordinate().Z());
+            mpCurrent.transform.position = pos;
+            pos = new Vector3((float)mnArray.ElementAt(i).getCoordinate().X(), (float)mnArray.ElementAt(i).getCoordinate().Y(), (float)mnArray.ElementAt(i).getCoordinate().Z());
+            mnCurrent.transform.position = pos;
+            pos = new Vector3((float)ppnArray.ElementAt(i).getCoordinate().X(), (float)ppnArray.ElementAt(i).getCoordinate().Y(), (float)ppnArray.ElementAt(i).getCoordinate().Z());
+            ppnCurrent.transform.position = pos;
+            pos = new Vector3((float)ipnArray.ElementAt(i).getCoordinate().X(), (float)ipnArray.ElementAt(i).getCoordinate().Y(), (float)ipnArray.ElementAt(i).getCoordinate().Z());
+            ipnCurrent.transform.position = pos;
+            pos = new Vector3((float)dpnArray.ElementAt(i).getCoordinate().X(), (float)dpnArray.ElementAt(i).getCoordinate().Y(), (float)dpnArray.ElementAt(i).getCoordinate().Z());
+            dpnCurrent.transform.position = pos;
+
+            line.material.color = Color.black;
+            line.SetPosition(0, mpCurrent.transform.position);
+            line.SetPosition(1, mnCurrent.transform.position);
+            line.material.color = Color.magenta;
+            line.SetPosition(2, ppnCurrent.transform.position);
+            line.SetPosition(3, ipnCurrent.transform.position);
+            line.SetPosition(4, dpnCurrent.transform.position);
+
+            if (c % nextFrame == 0)
+            {
+                if (i < mpArray.Count - 1)
+                    i++;
+                else
+                    Application.Quit();
+            }
+            c++;
+        }              
+    }
 
     public void Set(List<ReadFile.Point> mp, List<ReadFile.Point> mn, List<ReadFile.Point> ppn, List<ReadFile.Point> ipn, List<ReadFile.Point> dpn)
     {
@@ -76,6 +82,20 @@ public class LittleFinger : MonoBehaviour {
     public void setNextFrame(float nf)
     {
         nextFrame = nf;
+    }
+    public void Pause()
+    {
+        isPaused = true;
+    }
+    public void Continue()
+    {
+        isPaused = false;
+    }
+    public void Stop()
+    {
+        Pause();
+        i = 0;
+        c = 0;
     }
 
 }

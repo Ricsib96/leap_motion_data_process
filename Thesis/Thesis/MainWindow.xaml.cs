@@ -268,6 +268,8 @@ namespace Thesis
             {
                 Replay temp = (Replay)dg_replays.SelectedItem;
                 r_controller.selectedReplayId = dg_replays.SelectedIndex;
+                tb_filename.Text = temp.File_name;
+                tb_details.Text = temp.Detail;
             }
         }
         /*
@@ -294,9 +296,9 @@ namespace Thesis
 
                 r_controller.addReplay(replay, con);
 
-                Process.Start(@"E:\sensors_lm_k2_02\sensors\bin\Debug\sensors.exe");
+                Process.Start(@"E:\Dokumentumok\PE\7.félév\Szakdolgozat\leap_motion_data_process\sensors_lm_k2_02\sensors\bin\Debug\sensors.exe");
                 string msg = pipeServer.StartServerAndGetString(replay.File_name);
-                //ftpClient.upload(replay.Path, @"E:\test.csv");
+                ftpClient.upload(replay.Path, @"E:\test.csv");
                 fillReplays();
                 clearAllTextBox();
 
@@ -346,7 +348,7 @@ namespace Thesis
                     ftpClient.downloadFile(temp.Path, to);
 
                     pipeServer.StartServer(to);
-                    Process.Start(@"E:\sensors_lm_k2_02\sensors\bin\Debug\Presentation.exe");
+                    Process.Start(@"E:\Dokumentumok\PE\7.félév\Szakdolgozat\leap_motion_data_process\sensors_lm_k2_02\sensors\bin\Debug\Presentation.exe");
                     
                 }
                 else
@@ -375,6 +377,26 @@ namespace Thesis
                 writeInformation("Select a replay first!");
             }
 
+        }
+        private void btn_statistics_Click(object sender, RoutedEventArgs e)
+        {
+            if (dg_replays.SelectedIndex > -1)
+            {
+                Replay temp = (Replay)dg_replays.SelectedItem;
+                string to = AppDomain.CurrentDomain.BaseDirectory + temp.File_name;
+                if (to.Length > 0)
+                {
+                    ftpClient.downloadFile(temp.Path, to);
+
+                    pipeServer.StartServer(to);
+                    Process.Start(@"E:\Dokumentumok\PE\7.félév\Szakdolgozat\leap_motion_data_process\Thesis\Statistic\bin\Debug\Statistic.exe");
+
+                }
+            }
+            else
+            {
+                writeInformation("Select a replay first!");
+            }
         }
 
 
@@ -454,9 +476,11 @@ namespace Thesis
         {
             if (isPlaybackign)
             {
-                Trace.WriteLine("PLAYBACKED");
+                //Trace.WriteLine("PLAYBACKED");
             }
             isPlaybackign = false;
         }
+
+        
     }
 }

@@ -6,3 +6,5 @@ E:\Dokumentumok\PE\7.félév\Szakdolgozat\leap_motion_data_process\Thesis\Statis
 E:\Dokumentumok\PE\7.félév\Szakdolgozat\leap_motion_data_process\Thesis\Statistics\obj\Debug\Statistics.csproj.CoreCompileInputs.cache
 E:\Dokumentumok\PE\7.félév\Szakdolgozat\leap_motion_data_process\Thesis\Statistics\obj\Debug\Statistics.exe
 E:\Dokumentumok\PE\7.félév\Szakdolgozat\leap_motion_data_process\Thesis\Statistics\obj\Debug\Statistics.pdb
+E:\Dokumentumok\PE\7.félév\Szakdolgozat\leap_motion_data_process\Thesis\Statistics\obj\Debug\Statistics.Stat.resources
+E:\Dokumentumok\PE\7.félév\Szakdolgozat\leap_motion_data_process\Thesis\Statistics\obj\Debug\Statistics.csproj.GenerateResource.Cache

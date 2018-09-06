@@ -5,7 +5,9 @@ VisualStudioVersion = 15.0.27130.2027
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UserInterface", "Thesis\UserInterface.csproj", "{9BE1A2C1-30D4-4A3D-AEF5-B1F08601E891}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Statistics", "Statistics\Statistics.csproj", "{86BB25DE-CACA-40EE-BC60-18EE8B09ABB2}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StatisticsConsole", "Statistics\StatisticsConsole.csproj", "{86BB25DE-CACA-40EE-BC60-18EE8B09ABB2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Statistic", "Statistic\Statistic.csproj", "{3B043F25-56FB-46ED-9A2B-B9BA9B715278}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{86BB25DE-CACA-40EE-BC60-18EE8B09ABB2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{86BB25DE-CACA-40EE-BC60-18EE8B09ABB2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{86BB25DE-CACA-40EE-BC60-18EE8B09ABB2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3B043F25-56FB-46ED-9A2B-B9BA9B715278}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3B043F25-56FB-46ED-9A2B-B9BA9B715278}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3B043F25-56FB-46ED-9A2B-B9BA9B715278}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3B043F25-56FB-46ED-9A2B-B9BA9B715278}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

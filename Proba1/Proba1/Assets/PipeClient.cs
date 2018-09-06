@@ -34,5 +34,17 @@ public class PipeClient : MonoBehaviour {
         {
             File_name = input;
         }
+        client.Close();
+    }
+    public void sendStop()
+    {
+        client = new NamedPipeClientStream("Pipe");
+        client.Connect();
+
+        reader = new StreamReader(client);
+        writer = new StreamWriter(client);
+
+        writer.WriteLine("STOPPED");
+        writer.Flush();
     }
 }

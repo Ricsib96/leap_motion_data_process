@@ -15,6 +15,7 @@ public class IndexFinger : MonoBehaviour {
     GameObject mpCurrent, mnCurrent, ppnCurrent, ipnCurrent, dpnCurrent;
     Vector3 pos;
     LineRenderer line;
+    bool isPaused;
 
 
     // Use this for initialization
@@ -27,6 +28,7 @@ public class IndexFinger : MonoBehaviour {
         ipnCurrent = GameObject.Find("ipn_if");
         dpnCurrent = GameObject.Find("dpn_if");
         line = GameObject.Find("IndexFinger").GetComponent<LineRenderer>();
+        isPaused = false;
 
     }
 
@@ -34,30 +36,34 @@ public class IndexFinger : MonoBehaviour {
     void Update()
     {
 
-        pos = new Vector3((float)mpArray.ElementAt(i).getCoordinate().X(), (float)mpArray.ElementAt(i).getCoordinate().Y(), (float)mpArray.ElementAt(i).getCoordinate().Z());
-        mpCurrent.transform.position = pos;
-        pos = new Vector3((float)mnArray.ElementAt(i).getCoordinate().X(), (float)mnArray.ElementAt(i).getCoordinate().Y(), (float)mnArray.ElementAt(i).getCoordinate().Z());
-        mnCurrent.transform.position = pos;
-        pos = new Vector3((float)ppnArray.ElementAt(i).getCoordinate().X(), (float)ppnArray.ElementAt(i).getCoordinate().Y(), (float)ppnArray.ElementAt(i).getCoordinate().Z());
-        ppnCurrent.transform.position = pos;
-        pos = new Vector3((float)ipnArray.ElementAt(i).getCoordinate().X(), (float)ipnArray.ElementAt(i).getCoordinate().Y(), (float)ipnArray.ElementAt(i).getCoordinate().Z());
-        ipnCurrent.transform.position = pos;
-        pos = new Vector3((float)dpnArray.ElementAt(i).getCoordinate().X(), (float)dpnArray.ElementAt(i).getCoordinate().Y(), (float)dpnArray.ElementAt(i).getCoordinate().Z());
-        dpnCurrent.transform.position = pos;
-
-        line.material.color = Color.blue;
-        line.SetPosition(0, mpCurrent.transform.position);
-        line.SetPosition(1, mnCurrent.transform.position);
-        line.SetPosition(2, ppnCurrent.transform.position);
-        line.SetPosition(3, ipnCurrent.transform.position);
-        line.SetPosition(4, dpnCurrent.transform.position);
-
-        if (c % nextFrame == 0)
+        if(!isPaused)
         {
-            if (i < mpArray.Count - 1)
-                i++;
+            pos = new Vector3((float)mpArray.ElementAt(i).getCoordinate().X(), (float)mpArray.ElementAt(i).getCoordinate().Y(), (float)mpArray.ElementAt(i).getCoordinate().Z());
+            mpCurrent.transform.position = pos;
+            pos = new Vector3((float)mnArray.ElementAt(i).getCoordinate().X(), (float)mnArray.ElementAt(i).getCoordinate().Y(), (float)mnArray.ElementAt(i).getCoordinate().Z());
+            mnCurrent.transform.position = pos;
+            pos = new Vector3((float)ppnArray.ElementAt(i).getCoordinate().X(), (float)ppnArray.ElementAt(i).getCoordinate().Y(), (float)ppnArray.ElementAt(i).getCoordinate().Z());
+            ppnCurrent.transform.position = pos;
+            pos = new Vector3((float)ipnArray.ElementAt(i).getCoordinate().X(), (float)ipnArray.ElementAt(i).getCoordinate().Y(), (float)ipnArray.ElementAt(i).getCoordinate().Z());
+            ipnCurrent.transform.position = pos;
+            pos = new Vector3((float)dpnArray.ElementAt(i).getCoordinate().X(), (float)dpnArray.ElementAt(i).getCoordinate().Y(), (float)dpnArray.ElementAt(i).getCoordinate().Z());
+            dpnCurrent.transform.position = pos;
+
+            line.material.color = Color.blue;
+            line.SetPosition(0, mpCurrent.transform.position);
+            line.SetPosition(1, mnCurrent.transform.position);
+            line.SetPosition(2, ppnCurrent.transform.position);
+            line.SetPosition(3, ipnCurrent.transform.position);
+            line.SetPosition(4, dpnCurrent.transform.position);
+
+            if (c % nextFrame == 0)
+            {
+                if (i < mpArray.Count - 1)
+                    i++;
+            }
+            c++;
         }
-        c++;
+        
 
 
     }
@@ -73,5 +79,19 @@ public class IndexFinger : MonoBehaviour {
     public void setNextFrame(float nf)
     {
         nextFrame = nf;
+    }
+    public void Pause()
+    {
+        isPaused = true;
+    }
+    public void Continue()
+    {
+        isPaused = false;
+    }
+    public void Stop()
+    {
+        Pause();
+        i = 0;
+        c = 0;
     }
 }

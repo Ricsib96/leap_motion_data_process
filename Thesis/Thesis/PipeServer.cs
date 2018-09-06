@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.IO;
 using System.IO.Pipes;
 using System.Diagnostics;
+using System.Threading;
 
 namespace Thesis
 {
@@ -17,37 +18,24 @@ namespace Thesis
         {
             try
             {
+
+                var server = new NamedPipeServerStream("Pipe");
                 Task.Factory.StartNew(() =>
                 {
-                    bool isWaiting;
+                   
+                        server.WaitForConnection();
+                        StreamReader reader = new StreamReader(server);
+                        StreamWriter writer = new StreamWriter(server);
 
-                    var server = new NamedPipeServerStream("Pipe");
-                    server.WaitForConnection();
-                    StreamReader reader = new StreamReader(server);
-                    StreamWriter writer = new StreamWriter(server);
-
-                    writer.WriteLine(file_name);
-                    writer.Flush();
-
-                    isWaiting = true;
-
-                 /*   while (isWaiting)
-                    {
-                        string line = reader.ReadLine();
-                        if (line != null)
-                        {
-                            Trace.WriteLine(line);
-                            isWaiting = false;
-                        }
-                        else
-                        {
-                            //Trace.WriteLine("No data!");
-                        }
-                    } 
-                */
-                    server.Close();
+                        writer.WriteLine(file_name);
+                        writer.Flush();
+                    
+                        server.Disconnect();
+                        server.Dispose();
 
                 });
+
+                //Thread.Sleep(3000);
             }
             catch (Exception ex)
             {
@@ -59,9 +47,10 @@ namespace Thesis
         {
             try
             {
+                var server = new NamedPipeServerStream("Pipe");
                 Task.Factory.StartNew(() =>
                 {
-                    var server = new NamedPipeServerStream("Pipe");
+                    
                     server.WaitForConnection();
                     StreamReader reader = new StreamReader(server);
                     StreamWriter writer = new StreamWriter(server);
@@ -75,7 +64,8 @@ namespace Thesis
                         if (line != null)
                         {
                             Trace.WriteLine(line);
-                            server.Close();
+                            server.Disconnect();
+                            server.Dispose();
                             return line;
                         }
                     }

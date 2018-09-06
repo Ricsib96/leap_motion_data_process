@@ -90,11 +90,7 @@
                             <DataGridTextColumn Header="Name" Binding="{Binding File_name}" />
                             <DataGridTextColumn Header="Recorded at" Binding="{Binding Record_date}" />
                         </DataGrid.Columns>
-                        <DataGrid.RowDetailsTemplate>
-                            <DataTemplate>
-                                <TextBlock Text="{Binding Detail}" Margin="10" />
-                            </DataTemplate>
-                        </DataGrid.RowDetailsTemplate>
+                        
                     </DataGrid>
                     <Label x:Name="lb_replays" Content="Replays" Margin="11,0,577,342" VerticalAlignment="Bottom" FontSize="20" Foreground="#FFBBBBBB" Height="35" RenderTransformOrigin="0,0.5">
                         <Label.LayoutTransform>
@@ -121,6 +117,7 @@
                     <Label x:Name="lb_details" Content="Details" Margin="460,157,115,0" VerticalAlignment="Top" Foreground="#FFBBBBBB" FontSize="20" RenderTransformOrigin="0.425,2.486"/>
                     <TextBox x:Name="tb_details" Height="115" Margin="460,192,10,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
                     <Button x:Name="btn_delete_replay" Content="Delete" Margin="460,358,146,0" VerticalAlignment="Top" Height="32" Click="deleteReplay"/>
+                    <Button x:Name="btn_statistics" Content="Statistics" Margin="596,358,10,0" VerticalAlignment="Top" Height="32" Click="btn_statistics_Click"/>
                 </Grid>
             </TabItem>
         </TabControl>

@@ -529,7 +529,7 @@ namespace sensors
             client = new PipeClient();
             client.StartClient();
             lb_test.Content = client.File_name;
-            client.Write("asdsadsaadasd");
+            client.Write("DONE");
            
         }
 

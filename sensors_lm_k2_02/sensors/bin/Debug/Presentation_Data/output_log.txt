@@ -17,9 +17,16 @@ Platform assembly: E:\Dokumentumok\PE\7.félév\Szakdolgozat\leap_motion_data_pr
 Loading E:\Dokumentumok\PE\7.félév\Szakdolgozat\leap_motion_data_process\sensors_lm_k2_02\sensors\bin\Debug\Presentation_Data\Managed\UnityEngine.Networking.dll into Unity Child Domain
 Platform assembly: E:\Dokumentumok\PE\7.félév\Szakdolgozat\leap_motion_data_process\sensors_lm_k2_02\sensors\bin\Debug\Presentation_Data\Managed\UnityEngine.Analytics.dll (this message is harmless)
 Loading E:\Dokumentumok\PE\7.félév\Szakdolgozat\leap_motion_data_process\sensors_lm_k2_02\sensors\bin\Debug\Presentation_Data\Managed\UnityEngine.Analytics.dll into Unity Child Domain
-- Completed reload, in  0.404 seconds
+- Completed reload, in  0.118 seconds
 Platform assembly: E:\Dokumentumok\PE\7.félév\Szakdolgozat\leap_motion_data_process\sensors_lm_k2_02\sensors\bin\Debug\Presentation_Data\Managed\System.Core.dll (this message is harmless)
 Platform assembly: E:\Dokumentumok\PE\7.félév\Szakdolgozat\leap_motion_data_process\sensors_lm_k2_02\sensors\bin\Debug\Presentation_Data\Managed\System.dll (this message is harmless)
 desktop: 1366x768 60Hz; virtual: 1366x768 at 0,0
 <RI> Initializing input.
 <RI> Input initialized.
+<RI> Initialized touch support.
+UnloadTime: 2.611880 ms
+Setting up 4 worker threads for Enlighten.
+  Thread -> id: 2ec0 -> priority: 1 
+  Thread -> id: 1a18 -> priority: 1 
+  Thread -> id: 2ffc -> priority: 1 
+  Thread -> id: 3100 -> priority: 1 
