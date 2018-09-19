@@ -32,13 +32,16 @@ namespace sensors
 
         private PipeClient client;
 
+        private bool isStarted;
+
         public MainWindow()
         {
             InitializeComponent();
             data_hand.ItemsSource = _lm_controller.hand_data;
             img_leap_live.Source = _lm_controller.bitmap;
-            
-            
+            isStarted = false;
+            client = new PipeClient();
+
         }
 
 
@@ -46,15 +49,26 @@ namespace sensors
         //Leap motion
         private void but_leap_start_Click(object sender, RoutedEventArgs e)
         {
+            
+            client.StartClient();
             _lm_controller.SetHandConfiguration(_lm_handconf);
             _lm_controller.StartReading(client.File_name);
+            isStarted = true;
+            //MessageBox.Show("File name: " + client.File_name);
+
         }
 
         private void but_leap_stop_Click(object sender, RoutedEventArgs e)
         {
-            _lm_controller.StopReading();
-            client.isRecording = false;
-            Process.Start(@"E:\sensors_lm_k2_02\ExcelModification\bin\Debug\ExcelModification.exe");
+            if (isStarted)
+            {
+                _lm_controller.StopReading();
+                //client.isRecording = false;
+                //Process.Start(@"E:\sensors_lm_k2_02\ExcelModification\bin\Debug\ExcelModification.exe");
+                isStarted = false;
+                client.Write("DONE");
+            }
+            
         }
 
         private void chb_little_finger_distal_phalanges_next_Click(object sender, RoutedEventArgs e)
@@ -522,15 +536,6 @@ namespace sensors
             _lm_handconf.thumb_proximal_phalanges_next = true;
             _lm_handconf.thumb_proximal_phalanges_center = true;
             _lm_handconf.thumb_metacarpals_next = true;
-        }
-
-        private void btn_test_Click(object sender, RoutedEventArgs e)
-        {
-            client = new PipeClient();
-            client.StartClient();
-            lb_test.Content = client.File_name;
-            client.Write("DONE");
-           
         }
 
         //Kinect v2 end

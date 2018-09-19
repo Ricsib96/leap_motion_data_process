@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 using System.Windows.Media.Media3D;
 
 namespace Statistic
@@ -15,12 +17,19 @@ namespace Statistic
                             "ipc_lf","ipc_rf","ipc_mf","ipc_if","ipc_t","" +
                             "ppn_lf","ppn_rf","ppn_mf","ppn_if","ppn_t","" +
                             "ppc_lf","ppc_rf","ppc_mf","ppc_if","ppc_t","" +
-                            "mn_lf","mn_rf","mn_mf","mn_if","mn_t","mc_lf","" +
-                            "mc_rf","mc_mf","mc_if","mp_lf","mp_rf","mp_mf","mp_if"};
+                            "mn_lf","mn_rf","mn_mf","mn_if","mn_t",
+                            "mc_lf","mc_rf","mc_mf","mc_if",
+                            "mp_lf","mp_rf","mp_mf","mp_if"};
 
         public IDictionary<string, List<double>> Angles { get; set; }
+        public IDictionary<string, List<double>> Distances { get; set; }
+       // public List<double> Distances { get; set; }
         public double TotalTime { get; set; }
         public double UnitTime { get; set; }
+        public double MaxAngle { get; set; }
+        public double MaxDistance { get; set; }
+        public double MinAngle { get; set; }
+        public double MinDistance { get; set; }
         public DataHandler()
         {
             Angles = new Dictionary<string, List<double>>();
@@ -29,6 +38,19 @@ namespace Statistic
             Angles["RingFinger"] = new List<double>();
             Angles["LittleFinger"] = new List<double>();
             Angles["Thumb"] = new List<double>();
+
+            Distances = new Dictionary<string, List<double>>();
+            Distances["IndexFinger"] = new List<double>();
+            Distances["MiddleFinger"] = new List<double>();
+            Distances["RingFinger"] = new List<double>();
+            Distances["LittleFinger"] = new List<double>();
+            //  Distances = new List<double>();
+
+            MaxAngle = 0;
+            MinAngle = 100;
+
+            MaxDistance = 0;
+            MinDistance = 100;
         }
         public void LoadData(string FileName)
         {
@@ -38,14 +60,31 @@ namespace Statistic
             TotalTime = Points.Count / 30d;
 
             int count = 0;
+
             foreach (var Hand in Points)
             {
-                foreach (var Finger in Hand)
+         /*       foreach (var Finger in Hand)
                 {
                     if (count % 10 == 0)
                     {
-                        Angles[Finger.Name].Add(GetAngle(Finger));
+                        double AngleTemp = GetAngle(Finger);
+                        Angles[Finger.Name].Add(AngleTemp);
+
+                        MaxAngle = AngleTemp > MaxAngle ? AngleTemp : MaxAngle;
+                        MinAngle = AngleTemp < MinAngle ? AngleTemp : MinAngle;
                     }
+                } */
+                if(count % 10 == 0)
+                {
+                    foreach (var Finger in Hand)
+                    {
+                        double AngleTemp = GetAngle(Finger);
+                        Angles[Finger.Name].Add(AngleTemp);
+
+                        MaxAngle = AngleTemp > MaxAngle ? AngleTemp : MaxAngle;
+                        MinAngle = AngleTemp < MinAngle ? AngleTemp : MinAngle;
+                    } 
+                    GetDistance(Hand, Distances);
                 }
                 count++;
             }
@@ -61,8 +100,8 @@ namespace Statistic
             if (Finger.Name == "Thumb")
             {
                 first = "mn";
-                second = "ppc";
-                third = "ppn";
+                second = "ppn";
+                third = "ipn";
             }
 
             double x1 = Finger.Points[first].X;
@@ -88,17 +127,33 @@ namespace Statistic
             Vector3D v1 = p2 - p1;
             Vector3D v2 = p4 - p3;
 
-            /*   Trace.WriteLine("Point1: " + p1);
-               Trace.WriteLine("Point2: " + p2);
-               Trace.WriteLine("Point3: " + p3);
-               Trace.WriteLine("Point4: " + p4);
-
-               Trace.WriteLine("Vector1: " + v1);
-               Trace.WriteLine("Vector2: " + v2); */
-
             double angle = Vector3D.AngleBetween(v1, v2);
 
             return angle;
+        }
+
+        public double GetJointDistance(Point p1, Point p2)
+        {
+            Point3D po1 = new Point3D(p1.X, p1.Y, p1.Z);
+            Point3D po2 = new Point3D(p2.X, p2.Y, p2.Z);
+
+            Vector3D v = po2 - po1;
+
+            return v.Length;
+        }
+
+        public void GetDistance(List<Finger> Hand, IDictionary<string, List<double>> Distances)
+        {
+         //   List<double> Distances = new List<double>();
+           
+            for(int i = 1; i < Hand.Count; i++)
+            {
+                double DistanceTemp = GetJointDistance(Hand.ElementAt(i).Points["dpn"], Hand.ElementAt(0).Points["dpn"]);
+                Distances[Hand.ElementAt(i).Name].Add(DistanceTemp);
+
+                MaxDistance = DistanceTemp > MaxDistance ? DistanceTemp : MaxDistance;
+                MinDistance = DistanceTemp < MinDistance ? DistanceTemp : MinDistance;
+            }
         }
 
     }

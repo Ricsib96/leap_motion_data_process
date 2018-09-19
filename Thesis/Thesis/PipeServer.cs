@@ -43,7 +43,7 @@ namespace Thesis
             }
         }
 
-        public string StartServerAndGetString(string file_name)
+        public string StartServerAndGetString(FTPClient client,string path ,string file_name)
         {
             try
             {
@@ -63,7 +63,8 @@ namespace Thesis
                         string line = reader.ReadLine();
                         if (line != null)
                         {
-                            Trace.WriteLine(line);
+                            //Trace.WriteLine(line);
+                            client.upload(path, file_name);
                             server.Disconnect();
                             server.Dispose();
                             return line;

@@ -164,7 +164,6 @@
                                 <CheckBox x:Name="chb_thumb_metacarpals_next" Style="{DynamicResource JointSelector}"  Content="" HorizontalAlignment="Left" Height="10" Margin="536,576,0,0" VerticalAlignment="Top" Width="10" Click="chb_thumb_metacarpals_next_Click"/>
                                 <Button x:Name="button" Content="Display" HorizontalAlignment="Left" Margin="3,10,0,0" VerticalAlignment="Top" Width="75" Click="button_Click"/>
                                 <CheckBox x:Name="checkBox" Content="CheckAll" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="3,35,0,0" Width="75" Checked="checkBox_Checked"/>
-                                <Button x:Name="btn_test" Content="Test" HorizontalAlignment="Left" Margin="3,77,0,0" VerticalAlignment="Top" Width="75" Click="btn_test_Click"/>
 
                             </Grid>
                         </TabItem>
@@ -185,12 +184,6 @@
                         <TabItem Header="Live image" HorizontalAlignment="Right" Height="20" VerticalAlignment="Top" Width="76" Margin="0,0,-6,0">
                             <Grid Background="#FFE5E5E5">
                                 <Image x:Name="img_leap_live" Height="480" Width="640"/>
-                            </Grid>
-                        </TabItem>
-                        <TabItem Header="User Data" HorizontalAlignment="Right" Height="20" VerticalAlignment="Top" Width="76" Margin="0,0,-6,0">
-                            <Grid Background="#FFE5E5E5">
-                                <ComboBox x:Name="cb_users" HorizontalAlignment="Left" Margin="54,125,0,0" VerticalAlignment="Top" Width="274" Height="22" IsEditable="True"/>
-                                <Label x:Name="lb_users" Content="Users" HorizontalAlignment="Left" Margin="54,99,0,0" VerticalAlignment="Top" Width="167"/>
                             </Grid>
                         </TabItem>
 
@@ -285,7 +278,6 @@
                 </Grid>
             </TabItem>
         </TabControl>
-        <Label x:Name="lb_test" Content="test" HorizontalAlignment="Left" Margin="10,204,0,0" VerticalAlignment="Top" Width="76"/>
 
     </Grid>
 </Window>

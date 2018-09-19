@@ -33,7 +33,9 @@ namespace Thesis
         private PipeServer pipeServer;
         private FTPClient ftpClient;
 
-        private bool isPlaybackign;
+        private string StatisticsPath = @"E:\Dokumentumok\PE\7.félév\Szakdolgozat\leap_motion_data_process\Thesis\Statistic\bin\Debug\Statistic.exe";
+        private string SensorsPath = @"E:\Dokumentumok\PE\7.félév\Szakdolgozat\leap_motion_data_process\sensors_lm_k2_02\sensors\bin\Debug\sensors.exe";
+        private string PresentationPath = @"E:\Dokumentumok\PE\7.félév\Szakdolgozat\leap_motion_data_process\sensors_lm_k2_02\sensors\bin\Debug\Presentation.exe";
 
 //--------------------------------------------
 //***MAIN***
@@ -56,7 +58,6 @@ namespace Thesis
             r_controller = new ReplayController();
             pipeServer = new PipeServer();
             ftpClient = new FTPClient("admin", "admin", "ftp://localhost", 14147);
-            isPlaybackign = false;
             initializeListBox();
 
         }
@@ -295,10 +296,11 @@ namespace Thesis
                 replay.Patient_id = p_controller.Patient_ids.ElementAt(lbox_patients.SelectedIndex);
 
                 r_controller.addReplay(replay, con);
+                string to = AppDomain.CurrentDomain.BaseDirectory + replay.File_name + ".csv";
+                Process.Start(SensorsPath);
+                string msg = pipeServer.StartServerAndGetString(ftpClient,replay.Path,to);
+                ftpClient.upload(replay.Path, to);
 
-                Process.Start(@"E:\Dokumentumok\PE\7.félév\Szakdolgozat\leap_motion_data_process\sensors_lm_k2_02\sensors\bin\Debug\sensors.exe");
-                string msg = pipeServer.StartServerAndGetString(replay.File_name);
-                ftpClient.upload(replay.Path, @"E:\test.csv");
                 fillReplays();
                 clearAllTextBox();
 
@@ -307,8 +309,7 @@ namespace Thesis
             {
                 writeInformation("A data field is empty!");
             }
-            //Process.Start(@"E:\sensors_lm_k2_02\sensors\bin\Debug\sensors.exe");
-            //server.StartServer("asd.csv");
+
 
         }
         /*
@@ -330,25 +331,23 @@ namespace Thesis
             if(dg_replays.SelectedIndex > -1)
             {
 
-                SaveFileDialog saveFileDialog = new SaveFileDialog();
+             /*   SaveFileDialog saveFileDialog = new SaveFileDialog();
                 saveFileDialog.InitialDirectory = @"C:\";
                 saveFileDialog.Title = "Save File";
                 saveFileDialog.CheckPathExists = true;
                 saveFileDialog.DefaultExt = "txt";
                 saveFileDialog.Filter = "CSV files (*.*)|*.csv";
                 saveFileDialog.FilterIndex = 1;
-                saveFileDialog.RestoreDirectory = true;
+                saveFileDialog.RestoreDirectory = true; */
 
-             //   saveFileDialog.ShowDialog();
                 Replay temp = (Replay)dg_replays.SelectedItem;
-                //   string to = saveFileDialog.FileName;
                 string to = AppDomain.CurrentDomain.BaseDirectory + temp.File_name;
                 if(to.Length > 0)
                 {
                     ftpClient.downloadFile(temp.Path, to);
 
                     pipeServer.StartServer(to);
-                    Process.Start(@"E:\Dokumentumok\PE\7.félév\Szakdolgozat\leap_motion_data_process\sensors_lm_k2_02\sensors\bin\Debug\Presentation.exe");
+                    Process.Start(PresentationPath);
                     
                 }
                 else
@@ -361,7 +360,7 @@ namespace Thesis
             {
                 writeInformation("Select a replay from the list!");
             }
-            isPlaybackign = true;
+            fillReplays();
         }
 
         private void deleteReplay(object sender, RoutedEventArgs e)
@@ -389,7 +388,7 @@ namespace Thesis
                     ftpClient.downloadFile(temp.Path, to);
 
                     pipeServer.StartServer(to);
-                    Process.Start(@"E:\Dokumentumok\PE\7.félév\Szakdolgozat\leap_motion_data_process\Thesis\Statistic\bin\Debug\Statistic.exe");
+                    Process.Start(StatisticsPath);
 
                 }
             }
@@ -472,15 +471,11 @@ namespace Thesis
         }
 
 
-        private void Window_GotFocus(object sender, RoutedEventArgs e)
+        private void dg_replays_LostFocus(object sender, RoutedEventArgs e)
         {
-            if (isPlaybackign)
-            {
-                //Trace.WriteLine("PLAYBACKED");
-            }
-            isPlaybackign = false;
+            tb_filename.Text = "";
+            tb_details.Text = "";
         }
 
-        
     }
 }

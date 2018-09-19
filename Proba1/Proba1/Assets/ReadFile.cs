@@ -51,6 +51,11 @@ public class ReadFile : MonoBehaviour {
                     if (values[i].Length > 10)
                     {
                         var coordinates = values[i].Split(' ');
+
+                        coordinates[1] = coordinates[1].Replace(',', '.');
+                        coordinates[4] = coordinates[4].Replace(',', '.');
+                        coordinates[7] = coordinates[7].Replace(',', '.');
+
                         Point pointData = new Point(new Coordinate(double.Parse(coordinates[1]), Convert.ToDouble(coordinates[4]), Convert.ToDouble(coordinates[7])), header[i]);
                         temp.Add(pointData);
                     }

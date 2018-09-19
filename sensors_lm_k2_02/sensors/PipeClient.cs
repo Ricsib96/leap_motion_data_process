@@ -41,6 +41,7 @@ namespace sensors
         {
             writer.WriteLine(text);
             writer.Flush();
+            client.Dispose();
             client.Close();
             Environment.Exit(1);
         }

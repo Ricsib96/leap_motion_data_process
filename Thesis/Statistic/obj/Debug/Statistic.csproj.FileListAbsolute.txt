@@ -1,10 +1,10 @@
 E:\Dokumentumok\PE\7.félév\Szakdolgozat\leap_motion_data_process\Thesis\Statistic\bin\Debug\Statistic.exe.config
 E:\Dokumentumok\PE\7.félév\Szakdolgozat\leap_motion_data_process\Thesis\Statistic\bin\Debug\Statistic.exe
 E:\Dokumentumok\PE\7.félév\Szakdolgozat\leap_motion_data_process\Thesis\Statistic\bin\Debug\Statistic.pdb
-E:\Dokumentumok\PE\7.félév\Szakdolgozat\leap_motion_data_process\Thesis\Statistic\obj\Debug\Statistic.csprojResolveAssemblyReference.cache
 E:\Dokumentumok\PE\7.félév\Szakdolgozat\leap_motion_data_process\Thesis\Statistic\obj\Debug\Statistic.Form1.resources
 E:\Dokumentumok\PE\7.félév\Szakdolgozat\leap_motion_data_process\Thesis\Statistic\obj\Debug\Statistic.Properties.Resources.resources
 E:\Dokumentumok\PE\7.félév\Szakdolgozat\leap_motion_data_process\Thesis\Statistic\obj\Debug\Statistic.csproj.GenerateResource.Cache
 E:\Dokumentumok\PE\7.félév\Szakdolgozat\leap_motion_data_process\Thesis\Statistic\obj\Debug\Statistic.csproj.CoreCompileInputs.cache
 E:\Dokumentumok\PE\7.félév\Szakdolgozat\leap_motion_data_process\Thesis\Statistic\obj\Debug\Statistic.exe
 E:\Dokumentumok\PE\7.félév\Szakdolgozat\leap_motion_data_process\Thesis\Statistic\obj\Debug\Statistic.pdb
+E:\Dokumentumok\PE\7.félév\Szakdolgozat\leap_motion_data_process\Thesis\Statistic\obj\Debug\Statistic.csprojResolveAssemblyReference.cache

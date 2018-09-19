@@ -32,6 +32,10 @@ namespace Statistic
                 File_name = input;
             }
 
+            client.Close();
+            client.Dispose();
+           
+
         }
         public void Write(string text)
         {

@@ -6,7 +6,8 @@
         xmlns:local="clr-namespace:Thesis"
         xmlns:System="clr-namespace:System;assembly=mscorlib" x:Class="Thesis.MainWindow"
         mc:Ignorable="d"
-        Title="Leap Motion Data Process" Height="504" Width="707.267" Background="#FFECECEC" ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen" FontFamily="Microsoft YaHei UI Light" GotFocus="Window_GotFocus">
+        Icon="leap_icon_01p_icon.ico"
+        Title="Leap Motion Data Process" Height="504" Width="707.267" Background="#FFECECEC" ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen" FontFamily="Microsoft YaHei UI Light">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
@@ -85,7 +86,7 @@
                             </TransformGroup>
                         </Label.RenderTransform>
                     </Label>
-                    <DataGrid x:Name="dg_replays" HorizontalAlignment="Left" AutoGenerateColumns="False" Margin="10,85,0,31" Width="432" Background="#FFD8D7D7" BorderBrush="{x:Null}" GridLinesVisibility="Horizontal" HorizontalGridLinesBrush="#FF424242" FontSize="16" SelectionChanged="dg_replays_SelectionChanged" IsReadOnly="True" IsSynchronizedWithCurrentItem="False" AlternationCount="2" AlternatingRowBackground="#FF8D8D8D" RowBackground="#FFDCDADA" IsTextSearchEnabled="True" SelectionMode="Single" IsHitTestVisible="True" FontWeight="Bold" EnableRowVirtualization="False" MinColumnWidth="30" ColumnWidth="*">
+                    <DataGrid x:Name="dg_replays" HorizontalAlignment="Left" AutoGenerateColumns="False" Margin="10,85,0,31" Width="432" Background="#FFD8D7D7" BorderBrush="{x:Null}" GridLinesVisibility="Horizontal" HorizontalGridLinesBrush="#FF424242" FontSize="16" SelectionChanged="dg_replays_SelectionChanged" IsReadOnly="True" IsSynchronizedWithCurrentItem="False" AlternationCount="2" AlternatingRowBackground="#FFAAA7A7" RowBackground="#FFDCDADA" IsTextSearchEnabled="True" SelectionMode="Single" IsHitTestVisible="True" FontWeight="Bold" EnableRowVirtualization="False" MinColumnWidth="30" ColumnWidth="*" LostFocus="dg_replays_LostFocus">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Name" Binding="{Binding File_name}" />
                             <DataGridTextColumn Header="Recorded at" Binding="{Binding Record_date}" />

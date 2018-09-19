@@ -8,6 +8,6 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("img/leap.png")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("leap_icon_01p_icon.ico")]
 
 
