@@ -33,9 +33,13 @@ namespace Thesis
         private PipeServer pipeServer;
         private FTPClient ftpClient;
 
-        private string StatisticsPath = @"E:\Dokumentumok\PE\7.félév\Szakdolgozat\leap_motion_data_process\Thesis\Statistic\bin\Debug\Statistic.exe";
-        private string SensorsPath = @"E:\Dokumentumok\PE\7.félév\Szakdolgozat\leap_motion_data_process\sensors_lm_k2_02\sensors\bin\Debug\sensors.exe";
-        private string PresentationPath = @"E:\Dokumentumok\PE\7.félév\Szakdolgozat\leap_motion_data_process\sensors_lm_k2_02\sensors\bin\Debug\Presentation.exe";
+        //private string StatisticsPath = @"E:\Dokumentumok\PE\7.félév\Szakdolgozat\leap_motion_data_process\Thesis\Statistic\bin\Debug\Statistic.exe";
+        //private string SensorsPath = @"E:\Dokumentumok\PE\7.félév\Szakdolgozat\leap_motion_data_process\sensors_lm_k2_02\sensors\bin\Debug\sensors.exe";
+        //private string PresentationPath = @"E:\Dokumentumok\PE\7.félév\Szakdolgozat\leap_motion_data_process\sensors_lm_k2_02\sensors\bin\Debug\Presentation.exe";
+
+        private string StatisticsPath = "";
+        private string SensorsPath = "";
+        private string PresentationPath = "";
 
 //--------------------------------------------
 //***MAIN***
@@ -59,6 +63,7 @@ namespace Thesis
             pipeServer = new PipeServer();
             ftpClient = new FTPClient("admin", "admin", "ftp://localhost", 14147);
             initializeListBox();
+            ReadConfiguration("config.ini");
 
         }
         private void initializeListBox()
@@ -388,6 +393,7 @@ namespace Thesis
                     ftpClient.downloadFile(temp.Path, to);
 
                     pipeServer.StartServer(to);
+
                     Process.Start(StatisticsPath);
 
                 }
@@ -475,6 +481,34 @@ namespace Thesis
         {
             tb_filename.Text = "";
             tb_details.Text = "";
+        }
+
+        private void ReadConfiguration(String file)
+        {
+            String[] lines = System.IO.File.ReadAllLines(file);
+            foreach(String line in lines)
+            {
+
+                switch (line.Split('=')[0])
+                {
+                    case "Statistics":
+                        StatisticsPath = line.Split('=')[1];
+                        break;
+                    case "Presentation":
+                        PresentationPath = line.Split('=')[1];
+                        break;
+                    case "Sensors":
+                        SensorsPath = line.Split('=')[1];
+                        break;
+                }
+            }
+            if(StatisticsPath == "" || PresentationPath == "" || SensorsPath == "")
+            {
+                writeInformation("There was an error reading the configuration file(" + file +")");
+            }
+
+            MessageBox.Show(StatisticsPath);
+
         }
 
     }
