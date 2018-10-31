@@ -7,6 +7,7 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using System.Diagnostics;
+using System.Windows;
 
 namespace Thesis
 {
@@ -24,6 +25,23 @@ namespace Thesis
             this.Password = password;
             this.Host = host;
             this.Port = port;
+        }
+        public Boolean CheckConnection()
+        {
+            FtpWebRequest ftpRequest = (FtpWebRequest)FtpWebRequest.Create(Host + "/");
+            ftpRequest.Credentials = new NetworkCredential(UserName, Password);
+            ftpRequest.UseBinary = true;
+            ftpRequest.UsePassive = true;
+            ftpRequest.KeepAlive = true;
+            ftpRequest.Method = WebRequestMethods.Ftp.ListDirectory;
+            try
+            {
+                ftpRequest.GetResponse();
+            }catch (WebException ex){
+                MessageBox.Show("Cannot connect to FTP Server, please check the config file and try again!","Host: " + Host + ", Port: " + Port);
+                return false;
+            }
+            return true;
         }
         public void upload(string remoteFile, string localFile)
         {

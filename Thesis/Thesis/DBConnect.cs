@@ -15,10 +15,10 @@ namespace Thesis
     {
         private MySqlConnection connection;
 
-        private const string SERVER = "localhost";
-        private const string DATABASE = "data_process";
-        private const string UID = "root";
-        private const string PASSWORD = "admin";
+        private string SERVER = "";
+        private string DATABASE = "";
+        private string UID = "";
+        private string PASSWORD = "";
 
         private const string TABLE_PATIENTS = "patients";
         private const string TABLE_REPLAYS = "replays";
@@ -38,8 +38,12 @@ namespace Thesis
         private const string COL_DETAIL = "detail";
 
         //Constructor
-        public DBConnect()
+        public DBConnect(string server, string database, string uid, string pw)
         {
+            SERVER = server;
+            DATABASE = database;
+            UID = uid;
+            PASSWORD = pw;
             Initialize();
         }
 
@@ -52,6 +56,15 @@ namespace Thesis
             DATABASE + ";" + "UID=" + UID + ";" + "PASSWORD=" + PASSWORD + ";";
 
             connection = new MySqlConnection(connectionString);
+        }
+        public Boolean CheckConnection()
+        {
+            if (OpenConnection())
+            {
+                CloseConnection();
+                return true;
+            }
+            return false;
         }
 
         //open connection to database
@@ -74,12 +87,13 @@ namespace Thesis
                 //1045: Invalid user name and/or password.
                 switch (ex.Number)
                 {
-                    case 0:
-                        MessageBox.Show("Cannot connect to server.  Contact administrator");
+                    case 1042:
+                        MessageBox.Show("Cannot connect to database server, please check the config file and try again!","Server: " + SERVER + ", Database: " + DATABASE);
                         break;
-
+                    case 0:
+                        MessageBox.Show("Invalid database name or username/password, please check the config file and try again!", "Server: " + SERVER + ", Database: " + DATABASE);
+                        break;
                     case 1045:
-                        MessageBox.Show("Invalid username/password, please try again");
                         break;
                 }
                 return false;

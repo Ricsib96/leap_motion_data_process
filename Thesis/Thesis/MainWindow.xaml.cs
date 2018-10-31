@@ -41,6 +41,16 @@ namespace Thesis
         private string SensorsPath = "";
         private string PresentationPath = "";
 
+        private string Ftp_User = "";
+        private string Ftp_Password = "";
+        private string Ftp_Host = "";
+        private int Ftp_Port = 0;
+
+        private string Db_Server = "";
+        private string Db_Database = "";
+        private string Db_Uid = "";
+        private string Db_Password = "";
+
 //--------------------------------------------
 //***MAIN***
 //--------------------------------------------
@@ -48,23 +58,36 @@ namespace Thesis
 
         public MainWindow()
         {
-            
-            InitializeComponent();
-            Initialize();
+            if (ReadConfiguration("config.ini") && Connect())
+            {
+                //Connect();
+                InitializeComponent();
+                Initialize();
+            }
+            else
+            {
+                Application.Current.Shutdown();
+            }
+        }
+        private Boolean Connect()
+        {
+            con = new DBConnect(Db_Server, Db_Database, Db_Uid, Db_Password);
+            ftpClient = new FTPClient(Ftp_User, Ftp_Password, Ftp_Host, Ftp_Port);
+            if(ftpClient.CheckConnection() && con.CheckConnection())
+            {
+                return true;
+            }
+            return false;
         }
 //--------------------------------------------
 //***INITIALIZE***
 //--------------------------------------------
         private void Initialize()
         {
-            con = new DBConnect();
             p_controller = new PatientController();
             r_controller = new ReplayController();
             pipeServer = new PipeServer();
-            ftpClient = new FTPClient("admin", "admin", "ftp://localhost", 14147);
             initializeListBox();
-            ReadConfiguration("config.ini");
-
         }
         private void initializeListBox()
         {
@@ -417,7 +440,6 @@ namespace Thesis
         public void writeInformation(string info)
         {
             MessageBox.Show(info,"Error");
-            //tb_info.Text = info;
         }
 
         /*
@@ -483,7 +505,7 @@ namespace Thesis
             tb_details.Text = "";
         }
 
-        private void ReadConfiguration(String file)
+        private Boolean ReadConfiguration(String file)
         {
             String[] lines = System.IO.File.ReadAllLines(file);
             foreach(String line in lines)
@@ -500,15 +522,42 @@ namespace Thesis
                     case "Sensors":
                         SensorsPath = line.Split('=')[1];
                         break;
+                    case "Ftp_User":
+                        Ftp_User = line.Split('=')[1];
+                        break;
+                    case "Ftp_Password":
+                        Ftp_Password = line.Split('=')[1];
+                        break;
+                    case "Ftp_Host":
+                        Ftp_Host = line.Split('=')[1];
+                        break;
+                    case "Ftp_Port":
+                        Ftp_Port = Int32.Parse(line.Split('=')[1]);
+                        break;
+                    case "Db_Server":
+                        Db_Server = line.Split('=')[1];
+                        break;
+                    case "Db_Database":
+                        Db_Database = line.Split('=')[1];
+                        break;
+                    case "Db_Uid":
+                        Db_Uid = line.Split('=')[1];
+                        break;
+                    case "Db_Password":
+                        Db_Password = line.Split('=')[1];
+                        break;
+
                 }
             }
-            if(StatisticsPath == "" || PresentationPath == "" || SensorsPath == "")
+            if(StatisticsPath == "" || PresentationPath == "" || SensorsPath == ""
+                || Ftp_User == "" || Ftp_Password == "" || Ftp_Host == "" || Ftp_Port == 0
+                || Db_Server == "" || Db_Database == "" || Db_Uid == "" || Db_Password == ""
+                )
             {
                 writeInformation("There was an error reading the configuration file(" + file +")");
+                return false;
             }
-
-            MessageBox.Show(StatisticsPath);
-
+            return true;
         }
 
     }
